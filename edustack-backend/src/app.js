@@ -2,7 +2,19 @@ const express = require("express");
 const cors = require("cors");
 const helmet = require("helmet");
 const { sequelize } = require("./models");
-require("dotenv").config();
+require("dotenv").config({ path: './.env' });
+
+// Manual fallback for environment variables
+if (!process.env.JWT_SECRET) {
+  process.env.JWT_SECRET = 'your-super-secret-jwt-key-change-this-in-production';
+}
+if (!process.env.JWT_REFRESH_SECRET) {
+  process.env.JWT_REFRESH_SECRET = 'your-super-secret-refresh-key-change-this-in-production';
+}
+
+// Debug environment variables
+console.log('JWT_SECRET loaded:', !!process.env.JWT_SECRET);
+console.log('JWT_REFRESH_SECRET loaded:', !!process.env.JWT_REFRESH_SECRET);
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -97,7 +109,7 @@ async function startServer() {
     console.log('✅ Database connection established successfully');
 
     // Synchronize database (create tables)
-    await sequelize.sync({ alter: true });
+    await sequelize.sync({ force: true });
     console.log('✅ Database & tables synchronized successfully');
 
     // Seed initial data

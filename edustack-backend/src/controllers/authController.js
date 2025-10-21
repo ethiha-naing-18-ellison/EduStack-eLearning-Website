@@ -4,6 +4,9 @@ const { User, Role } = require('../models');
 
 // Generate JWT tokens
 const generateTokens = (user) => {
+  console.log('JWT_SECRET exists:', !!process.env.JWT_SECRET);
+  console.log('JWT_SECRET value:', process.env.JWT_SECRET ? 'SET' : 'NOT SET');
+  
   const payload = {
     userId: user.id,
     email: user.email,
@@ -96,9 +99,12 @@ const register = async (req, res) => {
 
   } catch (error) {
     console.error('Registration error:', error);
+    console.error('Error details:', error.message);
+    console.error('Error stack:', error.stack);
     res.status(500).json({
       message: 'Registration failed',
-      error: 'REGISTRATION_ERROR'
+      error: 'REGISTRATION_ERROR',
+      details: process.env.NODE_ENV === 'development' ? error.message : undefined
     });
   }
 };
