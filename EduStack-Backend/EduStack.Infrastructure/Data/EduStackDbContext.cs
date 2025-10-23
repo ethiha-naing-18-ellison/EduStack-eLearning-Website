@@ -21,12 +21,32 @@ public class EduStackDbContext : DbContext
     {
         base.OnModelCreating(modelBuilder);
 
+        // Configure table names to match existing database
+        modelBuilder.Entity<User>().ToTable("users");
+        modelBuilder.Entity<Course>().ToTable("courses");
+        modelBuilder.Entity<Enrollment>().ToTable("enrollments");
+        modelBuilder.Entity<Lesson>().ToTable("lessons");
+        modelBuilder.Entity<Progress>().ToTable("progress");
+        modelBuilder.Entity<Review>().ToTable("reviews");
+        modelBuilder.Entity<Category>().ToTable("categories");
+
         // User configuration
         modelBuilder.Entity<User>(entity =>
         {
             entity.HasIndex(e => e.Email).IsUnique();
             entity.Property(e => e.Role).HasDefaultValue("STUDENT");
             entity.Property(e => e.IsActive).HasDefaultValue(true);
+            
+            // Map column names to match database
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.Email).HasColumnName("email");
+            entity.Property(e => e.PasswordHash).HasColumnName("passwordhash");
+            entity.Property(e => e.FullName).HasColumnName("fullname");
+            entity.Property(e => e.Role).HasColumnName("role");
+            entity.Property(e => e.Avatar).HasColumnName("avatar");
+            entity.Property(e => e.IsActive).HasColumnName("isactive");
+            entity.Property(e => e.CreatedAt).HasColumnName("createdat");
+            entity.Property(e => e.UpdatedAt).HasColumnName("updatedat");
         });
 
         // Course configuration
@@ -40,6 +60,20 @@ public class EduStackDbContext : DbContext
             entity.Property(c => c.Price).HasColumnType("decimal(10,2)");
             entity.Property(c => c.Level).HasDefaultValue("BEGINNER");
             entity.Property(c => c.IsPublished).HasDefaultValue(false);
+            
+            // Map column names to match database
+            entity.Property(c => c.Id).HasColumnName("id");
+            entity.Property(c => c.Title).HasColumnName("title");
+            entity.Property(c => c.Description).HasColumnName("description");
+            entity.Property(c => c.Thumbnail).HasColumnName("thumbnail");
+            entity.Property(c => c.Price).HasColumnName("price");
+            entity.Property(c => c.Category).HasColumnName("category");
+            entity.Property(c => c.Level).HasColumnName("level");
+            entity.Property(c => c.Duration).HasColumnName("duration");
+            entity.Property(c => c.InstructorId).HasColumnName("instructorid");
+            entity.Property(c => c.IsPublished).HasColumnName("ispublished");
+            entity.Property(c => c.CreatedAt).HasColumnName("createdat");
+            entity.Property(c => c.UpdatedAt).HasColumnName("updatedat");
         });
 
         // Enrollment configuration
@@ -57,6 +91,14 @@ public class EduStackDbContext : DbContext
 
             entity.HasIndex(e => new { e.UserId, e.CourseId }).IsUnique();
             entity.Property(e => e.Status).HasDefaultValue("ACTIVE");
+            
+            // Map column names to match database
+            entity.Property(e => e.Id).HasColumnName("id");
+            entity.Property(e => e.UserId).HasColumnName("userid");
+            entity.Property(e => e.CourseId).HasColumnName("courseid");
+            entity.Property(e => e.Status).HasColumnName("status");
+            entity.Property(e => e.EnrolledAt).HasColumnName("enrolledat");
+            entity.Property(e => e.CompletedAt).HasColumnName("completedat");
         });
 
         // Lesson configuration
@@ -68,6 +110,18 @@ public class EduStackDbContext : DbContext
                   .OnDelete(DeleteBehavior.Cascade);
 
             entity.Property(l => l.IsPublished).HasDefaultValue(false);
+            
+            // Map column names to match database
+            entity.Property(l => l.Id).HasColumnName("id");
+            entity.Property(l => l.Title).HasColumnName("title");
+            entity.Property(l => l.Description).HasColumnName("description");
+            entity.Property(l => l.VideoUrl).HasColumnName("videourl");
+            entity.Property(l => l.Duration).HasColumnName("duration");
+            entity.Property(l => l.Order).HasColumnName("order");
+            entity.Property(l => l.CourseId).HasColumnName("courseid");
+            entity.Property(l => l.IsPublished).HasColumnName("ispublished");
+            entity.Property(l => l.CreatedAt).HasColumnName("createdat");
+            entity.Property(l => l.UpdatedAt).HasColumnName("updatedat");
         });
 
         // Progress configuration
@@ -90,6 +144,16 @@ public class EduStackDbContext : DbContext
 
             entity.HasIndex(p => new { p.UserId, p.CourseId, p.LessonId }).IsUnique();
             entity.Property(p => p.ProgressPercentage).HasDefaultValue(0);
+            
+            // Map column names to match database
+            entity.Property(p => p.Id).HasColumnName("id");
+            entity.Property(p => p.UserId).HasColumnName("userid");
+            entity.Property(p => p.CourseId).HasColumnName("courseid");
+            entity.Property(p => p.LessonId).HasColumnName("lessonid");
+            entity.Property(p => p.ProgressPercentage).HasColumnName("progresspercentage");
+            entity.Property(p => p.CompletedAt).HasColumnName("completedat");
+            entity.Property(p => p.CreatedAt).HasColumnName("createdat");
+            entity.Property(p => p.UpdatedAt).HasColumnName("updatedat");
         });
 
         // Review configuration
@@ -106,12 +170,29 @@ public class EduStackDbContext : DbContext
                   .OnDelete(DeleteBehavior.Cascade);
 
             entity.HasIndex(r => new { r.UserId, r.CourseId }).IsUnique();
+            
+            // Map column names to match database
+            entity.Property(r => r.Id).HasColumnName("id");
+            entity.Property(r => r.UserId).HasColumnName("userid");
+            entity.Property(r => r.CourseId).HasColumnName("courseid");
+            entity.Property(r => r.Rating).HasColumnName("rating");
+            entity.Property(r => r.Comment).HasColumnName("comment");
+            entity.Property(r => r.CreatedAt).HasColumnName("createdat");
+            entity.Property(r => r.UpdatedAt).HasColumnName("updatedat");
         });
 
         // Category configuration
         modelBuilder.Entity<Category>(entity =>
         {
             entity.HasIndex(c => c.Name).IsUnique();
+            
+            // Map column names to match database
+            entity.Property(c => c.Id).HasColumnName("id");
+            entity.Property(c => c.Name).HasColumnName("name");
+            entity.Property(c => c.Description).HasColumnName("description");
+            entity.Property(c => c.Icon).HasColumnName("icon");
+            entity.Property(c => c.CreatedAt).HasColumnName("createdat");
+            entity.Property(c => c.UpdatedAt).HasColumnName("updatedat");
         });
 
         // Seed data

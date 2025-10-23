@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("EduStack.Infrastructure")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+53e9a5128b961f788b50ff19ad546f9bab67b462")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+d850d036358fd38a4ce571ed545fec1b38531614")]
 [assembly: System.Reflection.AssemblyProductAttribute("EduStack.Infrastructure")]
 [assembly: System.Reflection.AssemblyTitleAttribute("EduStack.Infrastructure")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
