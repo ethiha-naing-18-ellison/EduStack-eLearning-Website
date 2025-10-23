@@ -138,11 +138,69 @@ app.MapGet("/health", () => new
     Environment = app.Environment.EnvironmentName
 });
 
-// Ensure database is created
+// Database info endpoint
+app.MapGet("/db-info", async (HttpContext httpContext) => 
+{
+    try
+    {
+        var serviceProvider = httpContext.RequestServices;
+        using var scope = serviceProvider.CreateScope();
+        var context = scope.ServiceProvider.GetRequiredService<EduStackDbContext>();
+        
+        var connectionString = context.Database.GetConnectionString();
+        var canConnect = await context.Database.CanConnectAsync();
+        var databaseName = context.Database.GetDbConnection().Database;
+        
+        var result = new
+        {
+            ConnectionString = connectionString,
+            DatabaseName = databaseName,
+            CanConnect = canConnect,
+            Status = "Connected"
+        };
+        
+        await httpContext.Response.WriteAsJsonAsync(result);
+    }
+    catch (Exception ex)
+    {
+        var errorResult = new
+        {
+            Error = ex.Message,
+            Status = "Failed"
+        };
+        
+        await httpContext.Response.WriteAsJsonAsync(errorResult);
+    }
+});
+
+// Ensure database is created and test connection
 using (var scope = app.Services.CreateScope())
 {
     var context = scope.ServiceProvider.GetRequiredService<EduStackDbContext>();
-    context.Database.EnsureCreated();
+    var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
+    
+    try
+    {
+        logger.LogInformation("Testing database connection...");
+        var canConnect = await context.Database.CanConnectAsync();
+        logger.LogInformation("Database connection test: {CanConnect}", canConnect);
+        
+        if (!canConnect)
+        {
+            logger.LogWarning("Cannot connect to database. Attempting to create database...");
+            await context.Database.EnsureCreatedAsync();
+            logger.LogInformation("Database creation completed");
+        }
+        else
+        {
+            logger.LogInformation("Database connection successful");
+        }
+    }
+    catch (Exception ex)
+    {
+        logger.LogError(ex, "Database connection failed: {Message}", ex.Message);
+        throw;
+    }
 }
 
 Log.Information("EduStack API starting up...");

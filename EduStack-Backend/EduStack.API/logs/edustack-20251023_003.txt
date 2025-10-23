@@ -1,0 +1,161 @@
+2025-10-23 21:20:33.125 +08:00 [INF] Testing database connection...
+2025-10-23 21:20:34.175 +08:00 [INF] Database connection test: true
+2025-10-23 21:20:34.182 +08:00 [INF] Database connection successful
+2025-10-23 21:20:34.190 +08:00 [INF] EduStack API starting up...
+2025-10-23 21:20:34.211 +08:00 [INF] User profile is available. Using 'C:\Users\TUF\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-10-23 21:20:34.310 +08:00 [INF] Now listening on: http://localhost:5000
+2025-10-23 21:20:34.313 +08:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-10-23 21:20:34.319 +08:00 [INF] Hosting environment: Development
+2025-10-23 21:20:34.322 +08:00 [INF] Content root path: C:\xampp\htdocs\EduStack-eLearning-Website\EduStack-Backend\EduStack.API
+2025-10-23 21:20:40.232 +08:00 [INF] Request starting HTTP/1.1 GET http://localhost:5000/index.html - null null
+2025-10-23 21:20:40.396 +08:00 [INF] Request finished HTTP/1.1 GET http://localhost:5000/index.html - 200 null text/html;charset=utf-8 164.8791ms
+2025-10-23 21:20:40.578 +08:00 [INF] Request starting HTTP/1.1 GET http://localhost:5000/swagger/v1/swagger.json - null null
+2025-10-23 21:20:40.789 +08:00 [INF] Request finished HTTP/1.1 GET http://localhost:5000/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 210.9242ms
+2025-10-23 21:21:06.879 +08:00 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5000/api/auth/register - null null
+2025-10-23 21:21:06.894 +08:00 [WRN] Failed to determine the https port for redirect.
+2025-10-23 21:21:06.901 +08:00 [INF] CORS policy execution successful.
+2025-10-23 21:21:06.907 +08:00 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5000/api/auth/register - 204 null null 28.1576ms
+2025-10-23 21:21:06.921 +08:00 [INF] Request starting HTTP/1.1 POST http://localhost:5000/api/auth/register - application/json 101
+2025-10-23 21:21:06.935 +08:00 [INF] CORS policy execution successful.
+2025-10-23 21:21:06.982 +08:00 [INF] Executing endpoint 'EduStack.API.Controllers.AuthController.Register (EduStack.API)'
+2025-10-23 21:21:07.016 +08:00 [INF] Route matched with {action = "Register", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Register(EduStack.Core.DTOs.Auth.RegisterUserDto) on controller EduStack.API.Controllers.AuthController (EduStack.API).
+2025-10-23 21:21:07.634 +08:00 [INF] Executed DbCommand (72ms) [Parameters=[@__email_0='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "Users" AS u
+    WHERE u."Email" = @__email_0)
+2025-10-23 21:21:07.674 +08:00 [WRN] Registration failed - User already exists: ellisonthihanaing@gmail.com
+2025-10-23 21:21:07.683 +08:00 [INF] Executing ConflictObjectResult, writing value of type 'EduStack.Core.DTOs.Common.ApiResponse`1[[System.Object, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-10-23 21:21:07.697 +08:00 [INF] Executed action EduStack.API.Controllers.AuthController.Register (EduStack.API) in 669.331ms
+2025-10-23 21:21:07.702 +08:00 [INF] Executed endpoint 'EduStack.API.Controllers.AuthController.Register (EduStack.API)'
+2025-10-23 21:21:07.713 +08:00 [INF] Request finished HTTP/1.1 POST http://localhost:5000/api/auth/register - 409 null application/json; charset=utf-8 792.2421ms
+2025-10-23 21:21:24.731 +08:00 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5000/api/auth/register - null null
+2025-10-23 21:21:24.742 +08:00 [INF] CORS policy execution successful.
+2025-10-23 21:21:24.768 +08:00 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5000/api/auth/register - 204 null null 37.3727ms
+2025-10-23 21:21:24.785 +08:00 [INF] Request starting HTTP/1.1 POST http://localhost:5000/api/auth/register - application/json 94
+2025-10-23 21:21:24.792 +08:00 [INF] CORS policy execution successful.
+2025-10-23 21:21:24.797 +08:00 [INF] Executing endpoint 'EduStack.API.Controllers.AuthController.Register (EduStack.API)'
+2025-10-23 21:21:24.801 +08:00 [INF] Route matched with {action = "Register", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Register(EduStack.Core.DTOs.Auth.RegisterUserDto) on controller EduStack.API.Controllers.AuthController (EduStack.API).
+2025-10-23 21:21:24.899 +08:00 [INF] Executed DbCommand (4ms) [Parameters=[@__email_0='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "Users" AS u
+    WHERE u."Email" = @__email_0)
+2025-10-23 21:21:25.605 +08:00 [INF] Executed DbCommand (112ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?', @p2='?' (DbType = DateTime), @p3='?', @p4='?', @p5='?', @p6='?', @p7='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Users" ("Id", "Avatar", "CreatedAt", "Email", "FullName", "PasswordHash", "Role", "UpdatedAt")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7)
+RETURNING "IsActive";
+2025-10-23 21:21:25.676 +08:00 [INF] User registered successfully: thihanaing@gmail.com
+2025-10-23 21:21:25.682 +08:00 [INF] Executing CreatedAtActionResult, writing value of type 'EduStack.Core.DTOs.Common.ApiResponse`1[[EduStack.Core.DTOs.Auth.LoginResponseDto, EduStack.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2025-10-23 21:21:25.723 +08:00 [INF] Executed action EduStack.API.Controllers.AuthController.Register (EduStack.API) in 916.2168ms
+2025-10-23 21:21:25.728 +08:00 [INF] Executed endpoint 'EduStack.API.Controllers.AuthController.Register (EduStack.API)'
+2025-10-23 21:21:25.732 +08:00 [INF] Request finished HTTP/1.1 POST http://localhost:5000/api/auth/register - 201 null application/json; charset=utf-8 947.7541ms
+2025-10-23 21:22:25.509 +08:00 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5000/api/auth/login - null null
+2025-10-23 21:22:25.518 +08:00 [INF] CORS policy execution successful.
+2025-10-23 21:22:25.521 +08:00 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5000/api/auth/login - 204 null null 11.3895ms
+2025-10-23 21:22:25.531 +08:00 [INF] Request starting HTTP/1.1 POST http://localhost:5000/api/auth/login - application/json 52
+2025-10-23 21:22:25.541 +08:00 [INF] CORS policy execution successful.
+2025-10-23 21:22:25.548 +08:00 [INF] Executing endpoint 'EduStack.API.Controllers.AuthController.Login (EduStack.API)'
+2025-10-23 21:22:25.558 +08:00 [INF] Route matched with {action = "Login", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(EduStack.Core.DTOs.Auth.LoginUserDto) on controller EduStack.API.Controllers.AuthController (EduStack.API).
+2025-10-23 21:22:25.621 +08:00 [INF] Executed DbCommand (1ms) [Parameters=[@__loginDto_Email_0='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT u."Id", u."Avatar", u."CreatedAt", u."Email", u."FullName", u."IsActive", u."PasswordHash", u."Role", u."UpdatedAt"
+FROM "Users" AS u
+WHERE u."Email" = @__loginDto_Email_0 AND u."IsActive"
+LIMIT 1
+2025-10-23 21:22:25.847 +08:00 [INF] User logged in successfully: thihanaing@gmail.com
+2025-10-23 21:22:25.850 +08:00 [INF] Executing OkObjectResult, writing value of type 'EduStack.Core.DTOs.Common.ApiResponse`1[[EduStack.Core.DTOs.Auth.LoginResponseDto, EduStack.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2025-10-23 21:22:25.855 +08:00 [INF] Executed action EduStack.API.Controllers.AuthController.Login (EduStack.API) in 291.6214ms
+2025-10-23 21:22:25.858 +08:00 [INF] Executed endpoint 'EduStack.API.Controllers.AuthController.Login (EduStack.API)'
+2025-10-23 21:22:25.861 +08:00 [INF] Request finished HTTP/1.1 POST http://localhost:5000/api/auth/login - 200 null application/json; charset=utf-8 330.5028ms
+2025-10-23 21:25:29.864 +08:00 [INF] Testing database connection...
+2025-10-23 21:25:31.081 +08:00 [INF] Database connection test: true
+2025-10-23 21:25:31.086 +08:00 [INF] Database connection successful
+2025-10-23 21:25:31.092 +08:00 [INF] EduStack API starting up...
+2025-10-23 21:25:31.114 +08:00 [INF] User profile is available. Using 'C:\Users\TUF\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-10-23 21:25:31.209 +08:00 [INF] Now listening on: http://localhost:5000
+2025-10-23 21:25:31.212 +08:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-10-23 21:25:31.218 +08:00 [INF] Hosting environment: Development
+2025-10-23 21:25:31.226 +08:00 [INF] Content root path: C:\xampp\htdocs\EduStack-eLearning-Website\EduStack-Backend\EduStack.API
+2025-10-23 21:25:38.688 +08:00 [INF] Request starting HTTP/1.1 GET http://localhost:5000/index.html - null null
+2025-10-23 21:25:38.809 +08:00 [INF] Request finished HTTP/1.1 GET http://localhost:5000/index.html - 200 null text/html;charset=utf-8 122.278ms
+2025-10-23 21:25:38.959 +08:00 [INF] Request starting HTTP/1.1 GET http://localhost:5000/swagger/v1/swagger.json - null null
+2025-10-23 21:25:39.180 +08:00 [INF] Request finished HTTP/1.1 GET http://localhost:5000/swagger/v1/swagger.json - 200 null application/json;charset=utf-8 220.0959ms
+2025-10-23 21:26:06.803 +08:00 [INF] Request starting HTTP/1.1 POST http://localhost:5000/api/Auth/register - application/json 100
+2025-10-23 21:26:06.818 +08:00 [WRN] Failed to determine the https port for redirect.
+2025-10-23 21:26:06.823 +08:00 [INF] CORS policy execution failed.
+2025-10-23 21:26:06.826 +08:00 [INF] Request origin http://localhost:5000 does not have permission to access the resource.
+2025-10-23 21:26:06.873 +08:00 [INF] Executing endpoint 'EduStack.API.Controllers.AuthController.Register (EduStack.API)'
+2025-10-23 21:26:06.907 +08:00 [INF] Route matched with {action = "Register", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Register(EduStack.Core.DTOs.Auth.RegisterUserDto) on controller EduStack.API.Controllers.AuthController (EduStack.API).
+2025-10-23 21:26:07.645 +08:00 [INF] Executed DbCommand (74ms) [Parameters=[@__email_0='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "Users" AS u
+    WHERE u."Email" = @__email_0)
+2025-10-23 21:26:08.607 +08:00 [INF] Executed DbCommand (14ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?', @p2='?' (DbType = DateTime), @p3='?', @p4='?', @p5='?', @p6='?', @p7='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Users" ("Id", "Avatar", "CreatedAt", "Email", "FullName", "PasswordHash", "Role", "UpdatedAt")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7)
+RETURNING "IsActive";
+2025-10-23 21:26:08.671 +08:00 [INF] User registered successfully: thiha@gmail.com
+2025-10-23 21:26:08.680 +08:00 [INF] Executing CreatedAtActionResult, writing value of type 'EduStack.Core.DTOs.Common.ApiResponse`1[[EduStack.Core.DTOs.Auth.LoginResponseDto, EduStack.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2025-10-23 21:26:08.721 +08:00 [INF] Executed action EduStack.API.Controllers.AuthController.Register (EduStack.API) in 1802.5566ms
+2025-10-23 21:26:08.725 +08:00 [INF] Executed endpoint 'EduStack.API.Controllers.AuthController.Register (EduStack.API)'
+2025-10-23 21:26:08.735 +08:00 [INF] Request finished HTTP/1.1 POST http://localhost:5000/api/Auth/register - 201 null application/json; charset=utf-8 1931.8113ms
+2025-10-23 21:27:17.861 +08:00 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5000/api/auth/register - null null
+2025-10-23 21:27:17.871 +08:00 [INF] CORS policy execution successful.
+2025-10-23 21:27:17.875 +08:00 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5000/api/auth/register - 204 null null 13.7111ms
+2025-10-23 21:27:17.888 +08:00 [INF] Request starting HTTP/1.1 POST http://localhost:5000/api/auth/register - application/json 91
+2025-10-23 21:27:17.896 +08:00 [INF] CORS policy execution successful.
+2025-10-23 21:27:17.901 +08:00 [INF] Executing endpoint 'EduStack.API.Controllers.AuthController.Register (EduStack.API)'
+2025-10-23 21:27:17.904 +08:00 [INF] Route matched with {action = "Register", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Register(EduStack.Core.DTOs.Auth.RegisterUserDto) on controller EduStack.API.Controllers.AuthController (EduStack.API).
+2025-10-23 21:27:17.986 +08:00 [INF] Executed DbCommand (1ms) [Parameters=[@__email_0='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "Users" AS u
+    WHERE u."Email" = @__email_0)
+2025-10-23 21:27:18.198 +08:00 [INF] Executed DbCommand (2ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?', @p2='?' (DbType = DateTime), @p3='?', @p4='?', @p5='?', @p6='?', @p7='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Users" ("Id", "Avatar", "CreatedAt", "Email", "FullName", "PasswordHash", "Role", "UpdatedAt")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7)
+RETURNING "IsActive";
+2025-10-23 21:27:18.206 +08:00 [INF] User registered successfully: ellison@gmail.com
+2025-10-23 21:27:18.211 +08:00 [INF] Executing CreatedAtActionResult, writing value of type 'EduStack.Core.DTOs.Common.ApiResponse`1[[EduStack.Core.DTOs.Auth.LoginResponseDto, EduStack.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2025-10-23 21:27:18.216 +08:00 [INF] Executed action EduStack.API.Controllers.AuthController.Register (EduStack.API) in 306.9039ms
+2025-10-23 21:27:18.221 +08:00 [INF] Executed endpoint 'EduStack.API.Controllers.AuthController.Register (EduStack.API)'
+2025-10-23 21:27:18.224 +08:00 [INF] Request finished HTTP/1.1 POST http://localhost:5000/api/auth/register - 201 null application/json; charset=utf-8 335.8649ms
+2025-10-23 21:29:55.505 +08:00 [INF] Request starting HTTP/1.1 GET http://localhost:5000/health - null null
+2025-10-23 21:29:55.514 +08:00 [INF] Executing endpoint 'HTTP: GET /health'
+2025-10-23 21:29:55.520 +08:00 [INF] Executed endpoint 'HTTP: GET /health'
+2025-10-23 21:29:55.523 +08:00 [INF] Request finished HTTP/1.1 GET http://localhost:5000/health - 200 null application/json; charset=utf-8 17.6423ms
+2025-10-23 21:30:05.655 +08:00 [INF] Request starting HTTP/1.1 POST http://localhost:5000/api/auth/register - application/json 123
+2025-10-23 21:30:05.661 +08:00 [INF] Executing endpoint 'EduStack.API.Controllers.AuthController.Register (EduStack.API)'
+2025-10-23 21:30:05.664 +08:00 [INF] Route matched with {action = "Register", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Register(EduStack.Core.DTOs.Auth.RegisterUserDto) on controller EduStack.API.Controllers.AuthController (EduStack.API).
+2025-10-23 21:30:05.685 +08:00 [INF] Executed DbCommand (1ms) [Parameters=[@__email_0='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "Users" AS u
+    WHERE u."Email" = @__email_0)
+2025-10-23 21:30:05.900 +08:00 [INF] Executed DbCommand (5ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?', @p2='?' (DbType = DateTime), @p3='?', @p4='?', @p5='?', @p6='?', @p7='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Users" ("Id", "Avatar", "CreatedAt", "Email", "FullName", "PasswordHash", "Role", "UpdatedAt")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7)
+RETURNING "IsActive";
+2025-10-23 21:30:05.908 +08:00 [INF] User registered successfully: test@example.com
+2025-10-23 21:30:05.911 +08:00 [INF] Executing CreatedAtActionResult, writing value of type 'EduStack.Core.DTOs.Common.ApiResponse`1[[EduStack.Core.DTOs.Auth.LoginResponseDto, EduStack.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2025-10-23 21:30:05.914 +08:00 [INF] Executed action EduStack.API.Controllers.AuthController.Register (EduStack.API) in 245.4761ms
+2025-10-23 21:30:05.917 +08:00 [INF] Executed endpoint 'EduStack.API.Controllers.AuthController.Register (EduStack.API)'
+2025-10-23 21:30:05.921 +08:00 [INF] Request finished HTTP/1.1 POST http://localhost:5000/api/auth/register - 201 null application/json; charset=utf-8 265.8114ms
+2025-10-23 21:31:32.817 +08:00 [INF] Request starting HTTP/1.1 POST http://localhost:5000/api/auth/register - application/json 123
+2025-10-23 21:31:32.822 +08:00 [INF] Executing endpoint 'EduStack.API.Controllers.AuthController.Register (EduStack.API)'
+2025-10-23 21:31:32.825 +08:00 [INF] Route matched with {action = "Register", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Register(EduStack.Core.DTOs.Auth.RegisterUserDto) on controller EduStack.API.Controllers.AuthController (EduStack.API).
+2025-10-23 21:31:32.888 +08:00 [INF] Executed DbCommand (4ms) [Parameters=[@__email_0='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM "Users" AS u
+    WHERE u."Email" = @__email_0)
+2025-10-23 21:31:33.106 +08:00 [INF] Executed DbCommand (3ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?', @p2='?' (DbType = DateTime), @p3='?', @p4='?', @p5='?', @p6='?', @p7='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO "Users" ("Id", "Avatar", "CreatedAt", "Email", "FullName", "PasswordHash", "Role", "UpdatedAt")
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7)
+RETURNING "IsActive";
+2025-10-23 21:31:33.115 +08:00 [INF] User registered successfully: debug@test.com
+2025-10-23 21:31:33.119 +08:00 [INF] Executing CreatedAtActionResult, writing value of type 'EduStack.Core.DTOs.Common.ApiResponse`1[[EduStack.Core.DTOs.Auth.LoginResponseDto, EduStack.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2025-10-23 21:31:33.124 +08:00 [INF] Executed action EduStack.API.Controllers.AuthController.Register (EduStack.API) in 295.3312ms
+2025-10-23 21:31:33.132 +08:00 [INF] Executed endpoint 'EduStack.API.Controllers.AuthController.Register (EduStack.API)'
+2025-10-23 21:31:33.136 +08:00 [INF] Request finished HTTP/1.1 POST http://localhost:5000/api/auth/register - 201 null application/json; charset=utf-8 318.8528ms

@@ -173,28 +173,73 @@ const Auth: React.FC = () => {
     return Object.keys(newErrors).length === 0;
   };
 
-  const handleSubmit = (e: React.FormEvent<HTMLFormElement>): void => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>): Promise<void> => {
     e.preventDefault();
     if (validateForm()) {
       setIsLoading(true);
       console.log(`${tabValue === 0 ? 'Login' : 'Signup'} data:`, formData);
       
-      // Simulate API call
-      setTimeout(() => {
-        setIsLoading(false);
+      try {
         if (tabValue === 0) {
-          alert('Login successful! (This is a demo)');
-        } else {
-          setSuccess(true);
-          setFormData({
-            name: '',
-            email: '',
-            password: '',
-            confirmPassword: '',
-            role: ''
+          // Login API call
+          const response = await fetch('http://localhost:5000/api/auth/login', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              email: formData.email,
+              password: formData.password
+            })
           });
+
+          if (response.ok) {
+            const data = await response.json();
+            console.log('Login successful:', data);
+            alert('Login successful!');
+          } else {
+            const error = await response.json();
+            console.error('Login failed:', error);
+            alert(`Login failed: ${error.message || 'Unknown error'}`);
+          }
+        } else {
+          // Signup API call
+          const response = await fetch('http://localhost:5000/api/auth/register', {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              email: formData.email,
+              password: formData.password,
+              fullName: formData.name,
+              role: formData.role.toUpperCase() // Convert to STUDENT/INSTRUCTOR
+            })
+          });
+
+          if (response.ok) {
+            const data = await response.json();
+            console.log('Signup successful:', data);
+            setSuccess(true);
+            setFormData({
+              name: '',
+              email: '',
+              password: '',
+              confirmPassword: '',
+              role: ''
+            });
+          } else {
+            const error = await response.json();
+            console.error('Signup failed:', error);
+            alert(`Signup failed: ${error.message || 'Unknown error'}`);
+          }
         }
-      }, 1000);
+      } catch (error) {
+        console.error('API call failed:', error);
+        alert('Network error. Please check if the backend is running.');
+      } finally {
+        setIsLoading(false);
+      }
     }
   };
 

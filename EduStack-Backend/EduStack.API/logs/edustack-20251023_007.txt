@@ -1,0 +1,15 @@
+2025-10-23 21:41:17.397 +08:00 [INF] Testing database connection...
+2025-10-23 21:41:18.600 +08:00 [INF] Database connection test: true
+2025-10-23 21:41:18.608 +08:00 [INF] Database connection successful
+2025-10-23 21:41:18.617 +08:00 [INF] EduStack API starting up...
+2025-10-23 21:41:18.642 +08:00 [INF] User profile is available. Using 'C:\Users\TUF\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-10-23 21:41:18.752 +08:00 [INF] Now listening on: http://localhost:5000
+2025-10-23 21:41:18.755 +08:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-10-23 21:41:18.760 +08:00 [INF] Hosting environment: Development
+2025-10-23 21:41:18.763 +08:00 [INF] Content root path: C:\xampp\htdocs\EduStack-eLearning-Website\EduStack-Backend\EduStack.API
+2025-10-23 21:41:50.603 +08:00 [INF] Request starting HTTP/1.1 GET http://localhost:5000/db-info - null null
+2025-10-23 21:41:50.659 +08:00 [WRN] Failed to determine the https port for redirect.
+2025-10-23 21:41:50.690 +08:00 [INF] Executing endpoint 'HTTP: GET /db-info'
+2025-10-23 21:41:50.796 +08:00 [INF] Executed endpoint 'HTTP: GET /db-info'
+2025-10-23 21:41:50.803 +08:00 [INF] Request finished HTTP/1.1 GET http://localhost:5000/db-info - 200 null application/json; charset=utf-8 201.9868ms
+2025-10-23 21:42:36.121 +08:00 [INF] Testing database connection...

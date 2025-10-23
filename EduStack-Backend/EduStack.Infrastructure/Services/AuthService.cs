@@ -48,7 +48,12 @@ public class AuthService : IAuthService
         };
 
         _context.Users.Add(user);
-        await _context.SaveChangesAsync();
+        var rowsAffected = await _context.SaveChangesAsync();
+        
+        if (rowsAffected == 0)
+        {
+            throw new InvalidOperationException("Failed to save user to database");
+        }
 
         // Generate JWT token
         var token = GenerateJwtToken(user);
