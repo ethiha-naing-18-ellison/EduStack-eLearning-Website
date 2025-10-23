@@ -1,0 +1,13 @@
+C:\xampp\htdocs\EduStack-eLearning-Website\EduStack-Backend\EduStack.Core\bin\Debug\net8.0\EduStack.Core.deps.json
+C:\xampp\htdocs\EduStack-eLearning-Website\EduStack-Backend\EduStack.Core\bin\Debug\net8.0\EduStack.Core.dll
+C:\xampp\htdocs\EduStack-eLearning-Website\EduStack-Backend\EduStack.Core\bin\Debug\net8.0\EduStack.Core.pdb
+C:\xampp\htdocs\EduStack-eLearning-Website\EduStack-Backend\EduStack.Core\obj\Debug\net8.0\EduStack.Core.csproj.AssemblyReference.cache
+C:\xampp\htdocs\EduStack-eLearning-Website\EduStack-Backend\EduStack.Core\obj\Debug\net8.0\EduStack.Core.GeneratedMSBuildEditorConfig.editorconfig
+C:\xampp\htdocs\EduStack-eLearning-Website\EduStack-Backend\EduStack.Core\obj\Debug\net8.0\EduStack.Core.AssemblyInfoInputs.cache
+C:\xampp\htdocs\EduStack-eLearning-Website\EduStack-Backend\EduStack.Core\obj\Debug\net8.0\EduStack.Core.AssemblyInfo.cs
+C:\xampp\htdocs\EduStack-eLearning-Website\EduStack-Backend\EduStack.Core\obj\Debug\net8.0\EduStack.Core.csproj.CoreCompileInputs.cache
+C:\xampp\htdocs\EduStack-eLearning-Website\EduStack-Backend\EduStack.Core\obj\Debug\net8.0\EduStack.Core.sourcelink.json
+C:\xampp\htdocs\EduStack-eLearning-Website\EduStack-Backend\EduStack.Core\obj\Debug\net8.0\EduStack.Core.dll
+C:\xampp\htdocs\EduStack-eLearning-Website\EduStack-Backend\EduStack.Core\obj\Debug\net8.0\refint\EduStack.Core.dll
+C:\xampp\htdocs\EduStack-eLearning-Website\EduStack-Backend\EduStack.Core\obj\Debug\net8.0\EduStack.Core.pdb
+C:\xampp\htdocs\EduStack-eLearning-Website\EduStack-Backend\EduStack.Core\obj\Debug\net8.0\ref\EduStack.Core.dll
