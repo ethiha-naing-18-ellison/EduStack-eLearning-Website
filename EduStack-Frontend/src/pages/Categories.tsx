@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   Box,
   Container,
@@ -33,6 +34,7 @@ interface Category {
 }
 
 const Categories: React.FC = () => {
+  const navigate = useNavigate();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
@@ -106,6 +108,11 @@ const Categories: React.FC = () => {
   const handleCategoryClick = (categoryId: number) => {
     // Future: Filter courses by category
     alert(`Filtering courses by category ${categoryId}. This feature will be implemented soon!`);
+  };
+
+  const handleViewDetails = (categoryId: number) => {
+    // Navigate to course details page
+    navigate(`/course-details/${categoryId}`);
   };
 
   return (
@@ -197,17 +204,23 @@ const Categories: React.FC = () => {
                   />
                 </CardContent>
 
-                <CardActions sx={{ p: 3, pt: 0 }}>
+                <CardActions sx={{ p: 3, pt: 0, gap: 1, display: 'flex' }}>
                   <Button
                     variant="outlined"
-                    fullWidth
+                    onClick={() => handleViewDetails(category.id)}
+                    sx={{ flex: 1 }}
+                  >
+                    View Details
+                  </Button>
+                  <Button
+                    variant="contained"
                     onClick={() => handleCategoryClick(category.id)}
-                    sx={{
-                      borderColor: category.color,
-                      color: category.color,
+                    sx={{ 
+                      flex: 1,
+                      backgroundColor: category.color,
                       '&:hover': {
                         backgroundColor: category.color,
-                        color: 'white'
+                        opacity: 0.9
                       }
                     }}
                   >

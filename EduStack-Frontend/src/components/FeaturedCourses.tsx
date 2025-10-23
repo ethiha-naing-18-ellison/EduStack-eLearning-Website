@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   Box,
   Container,
@@ -37,6 +38,7 @@ interface Course {
 }
 
 const FeaturedCourses: React.FC = () => {
+  const navigate = useNavigate();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
 
@@ -136,7 +138,12 @@ const FeaturedCourses: React.FC = () => {
 
   const handleViewDetails = (courseId: number) => {
     // Navigate to course details page
-    alert(`Viewing details for course ${courseId}`);
+    navigate(`/course-details/${courseId}`);
+  };
+
+  const handleViewAllCourses = () => {
+    // Navigate to courses page
+    navigate('/courses');
   };
 
   return (
@@ -300,7 +307,7 @@ const FeaturedCourses: React.FC = () => {
                     startIcon={<PlayCircleOutline />}
                     sx={{ flex: 1 }}
                   >
-                    Enroll Now
+                    Enroll
                   </Button>
                 </CardActions>
               </Card>
@@ -312,6 +319,7 @@ const FeaturedCourses: React.FC = () => {
           <Button
             variant="outlined"
             size="large"
+            onClick={handleViewAllCourses}
             sx={{
               px: 4,
               py: 1.5,

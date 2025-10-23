@@ -11,6 +11,7 @@ import Instructors from './pages/Instructors';
 import About from './components/About';
 import Contact from './components/Contact';
 import MyCourses from './pages/MyCourses';
+import CourseDetails from './pages/CourseDetails';
 
 const theme = createTheme({
   palette: {
@@ -39,6 +40,7 @@ const App: React.FC = () => {
           <Route path="/signup" element={<Auth />} />
           <Route path="/auth" element={<Auth />} />
           <Route path="/mycourses" element={<Layout><MyCourses /></Layout>} />
+          <Route path="/course-details/:id" element={<Layout><CourseDetails /></Layout>} />
         </Routes>
       </Router>
     </ThemeProvider>
