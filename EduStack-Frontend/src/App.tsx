@@ -2,7 +2,15 @@ import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { ThemeProvider, createTheme } from '@mui/material/styles';
 import CssBaseline from '@mui/material/CssBaseline';
+import Layout from './components/Layout';
 import Home from './components/Home';
+import Auth from './components/Auth';
+import Courses from './pages/Courses';
+import Categories from './pages/Categories';
+import Instructors from './pages/Instructors';
+import About from './components/About';
+import Contact from './components/Contact';
+import MyCourses from './pages/MyCourses';
 
 const theme = createTheme({
   palette: {
@@ -21,7 +29,16 @@ const App: React.FC = () => {
       <CssBaseline />
       <Router>
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route path="/" element={<Layout><Home /></Layout>} />
+          <Route path="/courses" element={<Layout><Courses /></Layout>} />
+          <Route path="/categories" element={<Layout><Categories /></Layout>} />
+          <Route path="/instructors" element={<Layout><Instructors /></Layout>} />
+          <Route path="/about" element={<Layout><About /></Layout>} />
+          <Route path="/contact" element={<Layout><Contact /></Layout>} />
+          <Route path="/login" element={<Auth />} />
+          <Route path="/signup" element={<Auth />} />
+          <Route path="/auth" element={<Auth />} />
+          <Route path="/mycourses" element={<Layout><MyCourses /></Layout>} />
         </Routes>
       </Router>
     </ThemeProvider>
