@@ -27,6 +27,7 @@ import {
 } from '@mui/icons-material';
 import EnrollmentModal from './EnrollmentModal';
 import { useEnrollment } from '../contexts/EnrollmentContext';
+import { useAuth } from '../contexts/AuthContext';
 
 interface Course {
   id: number;
@@ -47,6 +48,7 @@ const FeaturedCourses: React.FC = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const { enrollInCourse, isEnrolled } = useEnrollment();
+  const { isAuthenticated } = useAuth();
   
   const [enrollmentModal, setEnrollmentModal] = useState<{
     open: boolean;
@@ -142,9 +144,7 @@ const FeaturedCourses: React.FC = () => {
 
   const handleEnroll = (course: Course) => {
     // Check if user is logged in
-    const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
-    
-    if (!isLoggedIn) {
+    if (!isAuthenticated) {
       setSnackbar({
         open: true,
         message: 'Please sign up or login to enroll in courses!',

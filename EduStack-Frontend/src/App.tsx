@@ -13,6 +13,7 @@ import Contact from './components/Contact';
 import MyCourses from './pages/MyCourses';
 import CourseDetails from './pages/CourseDetails';
 import { EnrollmentProvider } from './contexts/EnrollmentContext';
+import { AuthProvider } from './contexts/AuthContext';
 
 const theme = createTheme({
   palette: {
@@ -29,23 +30,25 @@ const App: React.FC = () => {
   return (
     <ThemeProvider theme={theme}>
       <CssBaseline />
-      <EnrollmentProvider>
-        <Router>
-          <Routes>
-            <Route path="/" element={<Layout><Home /></Layout>} />
-            <Route path="/courses" element={<Layout><Courses /></Layout>} />
-            <Route path="/categories" element={<Layout><Categories /></Layout>} />
-            <Route path="/instructors" element={<Layout><Instructors /></Layout>} />
-            <Route path="/about" element={<Layout><About /></Layout>} />
-            <Route path="/contact" element={<Layout><Contact /></Layout>} />
-            <Route path="/login" element={<Auth />} />
-            <Route path="/signup" element={<Auth />} />
-            <Route path="/auth" element={<Auth />} />
-            <Route path="/mycourses" element={<Layout><MyCourses /></Layout>} />
-            <Route path="/course-details/:id" element={<Layout><CourseDetails /></Layout>} />
-          </Routes>
-        </Router>
-      </EnrollmentProvider>
+      <AuthProvider>
+        <EnrollmentProvider>
+          <Router>
+            <Routes>
+              <Route path="/" element={<Layout><Home /></Layout>} />
+              <Route path="/courses" element={<Layout><Courses /></Layout>} />
+              <Route path="/categories" element={<Layout><Categories /></Layout>} />
+              <Route path="/instructors" element={<Layout><Instructors /></Layout>} />
+              <Route path="/about" element={<Layout><About /></Layout>} />
+              <Route path="/contact" element={<Layout><Contact /></Layout>} />
+              <Route path="/login" element={<Auth />} />
+              <Route path="/signup" element={<Auth />} />
+              <Route path="/auth" element={<Auth />} />
+              <Route path="/mycourses" element={<Layout><MyCourses /></Layout>} />
+              <Route path="/course-details/:id" element={<Layout><CourseDetails /></Layout>} />
+            </Routes>
+          </Router>
+        </EnrollmentProvider>
+      </AuthProvider>
     </ThemeProvider>
   );
 };

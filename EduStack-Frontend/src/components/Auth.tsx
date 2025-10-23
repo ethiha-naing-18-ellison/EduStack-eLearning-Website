@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   Box,
   Container,
@@ -38,6 +39,7 @@ import {
   PersonAdd,
   School as SchoolIcon
 } from '@mui/icons-material';
+import { useAuth } from '../contexts/AuthContext';
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -82,6 +84,8 @@ const TabPanel: React.FC<TabPanelProps> = ({ children, value, index, ...other })
 const Auth: React.FC = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const navigate = useNavigate();
+  const { login, isAuthenticated } = useAuth();
   const [tabValue, setTabValue] = useState<number>(0);
   const [formData, setFormData] = useState<FormData>({
     name: '',
@@ -95,6 +99,13 @@ const Auth: React.FC = () => {
   const [errors, setErrors] = useState<FormErrors>({});
   const [isLoading, setIsLoading] = useState<boolean>(false);
   const [success, setSuccess] = useState<boolean>(false);
+
+  // Redirect if already authenticated
+  React.useEffect(() => {
+    if (isAuthenticated) {
+      navigate('/');
+    }
+  }, [isAuthenticated, navigate]);
 
   const handleTabChange = (event: React.SyntheticEvent, newValue: number): void => {
     setTabValue(newValue);
@@ -181,26 +192,15 @@ const Auth: React.FC = () => {
       
       try {
         if (tabValue === 0) {
-          // Login API call
-          const response = await fetch('http://localhost:5000/api/auth/login', {
-            method: 'POST',
-            headers: {
-              'Content-Type': 'application/json',
-            },
-            body: JSON.stringify({
-              email: formData.email,
-              password: formData.password
-            })
-          });
-
-          if (response.ok) {
-            const data = await response.json();
-            console.log('Login successful:', data);
-            alert('Login successful!');
+          // Login using authentication context
+          const loginSuccess = await login(formData.email, formData.password);
+          
+          if (loginSuccess) {
+            console.log('Login successful');
+            // Navigation will be handled by the useEffect hook
           } else {
-            const error = await response.json();
-            console.error('Login failed:', error);
-            alert(`Login failed: ${error.message || 'Unknown error'}`);
+            console.error('Login failed');
+            alert('Login failed: Invalid email or password');
           }
         } else {
           // Signup API call

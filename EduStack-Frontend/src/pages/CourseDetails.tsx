@@ -35,6 +35,8 @@ import {
   Cloud,
   PhoneAndroid
 } from '@mui/icons-material';
+import { useAuth } from '../contexts/AuthContext';
+import { useEnrollment } from '../contexts/EnrollmentContext';
 
 interface CourseDetails {
   id: number;
@@ -64,6 +66,8 @@ const CourseDetails: React.FC = () => {
   const navigate = useNavigate();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const { isAuthenticated } = useAuth();
+  const { enrollInCourse, isEnrolled } = useEnrollment();
 
   // Sample course data - in a real app, this would come from an API
   const courseData: CourseDetails = {
@@ -131,8 +135,37 @@ const CourseDetails: React.FC = () => {
   };
 
   const handleEnroll = () => {
-    // Future: Implement enrollment logic
-    alert(`Enrolling in ${courseData.title}. This feature will be implemented soon!`);
+    // Check if user is logged in
+    if (!isAuthenticated) {
+      alert('Please sign up or login to enroll in courses!');
+      navigate('/auth');
+      return;
+    }
+
+    // Check if already enrolled
+    if (isEnrolled(courseData.id)) {
+      alert('You are already enrolled in this course!');
+      return;
+    }
+
+    // Convert CourseDetails to Course format for enrollment
+    const course = {
+      id: courseData.id,
+      title: courseData.title,
+      instructor: courseData.instructor,
+      instructorAvatar: courseData.instructorInitials,
+      thumbnail: courseData.image,
+      rating: courseData.rating,
+      students: courseData.studentCount,
+      duration: courseData.duration,
+      price: `$${courseData.price}`,
+      category: courseData.category,
+      level: courseData.category // Using category as level for now
+    };
+
+    // Enroll in the course
+    enrollInCourse(course);
+    alert(`Successfully enrolled in "${courseData.title}"!`);
   };
 
   const handleBackToCourses = () => {

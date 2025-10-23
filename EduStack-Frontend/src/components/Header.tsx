@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link, NavLink } from 'react-router-dom';
+import { useAuth } from '../contexts/AuthContext';
 import {
   AppBar,
   Toolbar,
@@ -31,6 +32,7 @@ const Header: React.FC = () => {
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const { user, isAuthenticated, logout } = useAuth();
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -41,6 +43,11 @@ const Header: React.FC = () => {
   };
 
   const handleMenuClose = () => {
+    setAnchorEl(null);
+  };
+
+  const handleLogout = () => {
+    logout();
     setAnchorEl(null);
   };
 
@@ -65,10 +72,21 @@ const Header: React.FC = () => {
             <ListItemText primary={item.label} />
           </ListItem>
         ))}
-        <ListItem>
-          <Button variant="outlined" sx={{ mr: 1 }} component={Link} to="/auth">Sign Up</Button>
-          <Button variant="contained" component={Link} to="/auth">Login</Button>
-        </ListItem>
+        {isAuthenticated ? (
+          <ListItem>
+            <Typography variant="body1" sx={{ mr: 2 }}>
+              Welcome, {user?.fullName}!
+            </Typography>
+            <Button variant="outlined" onClick={handleLogout}>
+              Logout
+            </Button>
+          </ListItem>
+        ) : (
+          <ListItem>
+            <Button variant="outlined" sx={{ mr: 1 }} component={Link} to="/auth">Sign Up</Button>
+            <Button variant="contained" component={Link} to="/auth">Login</Button>
+          </ListItem>
+        )}
       </List>
     </Box>
   );
@@ -108,24 +126,34 @@ const Header: React.FC = () => {
                   </Button>
                 ))}
               </Box>
-              <Box sx={{ display: 'flex', gap: 2 }}>
-                <Button variant="outlined" color="primary" component={Link} to="/auth">
-                  Sign Up
-                </Button>
-                <Button variant="contained" color="primary" component={Link} to="/auth">
-                  Login
-                </Button>
-                <IconButton
-                  size="large"
-                  edge="end"
-                  aria-label="account of current user"
-                  aria-controls="primary-search-account-menu"
-                  aria-haspopup="true"
-                  onClick={handleProfileMenuOpen}
-                  color="inherit"
-                >
-                  <AccountCircle />
-                </IconButton>
+              <Box sx={{ display: 'flex', gap: 2, alignItems: 'center' }}>
+                {isAuthenticated ? (
+                  <>
+                    <Typography variant="body1" sx={{ mr: 2 }}>
+                      Welcome, {user?.fullName}!
+                    </Typography>
+                    <IconButton
+                      size="large"
+                      edge="end"
+                      aria-label="account of current user"
+                      aria-controls="primary-search-account-menu"
+                      aria-haspopup="true"
+                      onClick={handleProfileMenuOpen}
+                      color="inherit"
+                    >
+                      <AccountCircle />
+                    </IconButton>
+                  </>
+                ) : (
+                  <>
+                    <Button variant="outlined" color="primary" component={Link} to="/auth">
+                      Sign Up
+                    </Button>
+                    <Button variant="contained" color="primary" component={Link} to="/auth">
+                      Login
+                    </Button>
+                  </>
+                )}
               </Box>
             </>
           ) : (
@@ -158,7 +186,7 @@ const Header: React.FC = () => {
         <MenuItem onClick={handleMenuClose}>My Courses</MenuItem>
         <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
         <MenuItem onClick={handleMenuClose}>Settings</MenuItem>
-        <MenuItem onClick={handleMenuClose}>Logout</MenuItem>
+        <MenuItem onClick={handleLogout}>Logout</MenuItem>
       </Menu>
 
       <Drawer
