@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import {
   Box,
@@ -14,13 +14,18 @@ import {
   Rating,
   Avatar,
   useTheme,
-  useMediaQuery
+  useMediaQuery,
+  Snackbar,
+  Alert
 } from '@mui/material';
 import {
   PlayCircleOutline,
   AccessTime,
-  People
+  People,
+  CheckCircle
 } from '@mui/icons-material';
+import EnrollmentModal from '../components/EnrollmentModal';
+import { useEnrollment } from '../contexts/EnrollmentContext';
 
 interface Course {
   id: number;
@@ -40,6 +45,18 @@ const Courses: React.FC = () => {
   const navigate = useNavigate();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+  const { enrollInCourse, isEnrolled } = useEnrollment();
+  
+  const [enrollmentModal, setEnrollmentModal] = useState<{
+    open: boolean;
+    course: Course | null;
+  }>({ open: false, course: null });
+  const [loading, setLoading] = useState(false);
+  const [snackbar, setSnackbar] = useState<{
+    open: boolean;
+    message: string;
+    severity: 'success' | 'error' | 'info';
+  }>({ open: false, message: '', severity: 'info' });
 
   const courses: Course[] = [
     {
@@ -161,16 +178,67 @@ const Courses: React.FC = () => {
     }
   ];
 
-  const handleEnroll = (courseId: number) => {
+  const handleEnroll = (course: Course) => {
+    // Check if user is logged in
     const isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
     
     if (!isLoggedIn) {
-      alert('Please sign up or login to enroll in courses!');
-      window.location.href = '/signup';
+      setSnackbar({
+        open: true,
+        message: 'Please sign up or login to enroll in courses!',
+        severity: 'error'
+      });
+      setTimeout(() => navigate('/auth'), 2000);
       return;
     }
-    
-    alert(`Enrolled in course ${courseId}!`);
+
+    // Check if already enrolled
+    if (isEnrolled(course.id)) {
+      setSnackbar({
+        open: true,
+        message: 'You are already enrolled in this course!',
+        severity: 'info'
+      });
+      return;
+    }
+
+    // Open enrollment modal
+    setEnrollmentModal({ open: true, course });
+  };
+
+  const handleConfirmEnrollment = async () => {
+    if (!enrollmentModal.course) return;
+
+    setLoading(true);
+    try {
+      // Simulate API call delay
+      await new Promise(resolve => setTimeout(resolve, 1500));
+      
+      enrollInCourse(enrollmentModal.course);
+      
+      setEnrollmentModal({ open: false, course: null });
+      setSnackbar({
+        open: true,
+        message: `Successfully enrolled in "${enrollmentModal.course.title}"!`,
+        severity: 'success'
+      });
+    } catch (error) {
+      setSnackbar({
+        open: true,
+        message: 'Failed to enroll in course. Please try again.',
+        severity: 'error'
+      });
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handleCloseEnrollmentModal = () => {
+    setEnrollmentModal({ open: false, course: null });
+  };
+
+  const handleCloseSnackbar = () => {
+    setSnackbar({ ...snackbar, open: false });
   };
 
   const handleViewDetails = (courseId: number) => {
@@ -334,11 +402,12 @@ const Courses: React.FC = () => {
                   </Button>
                   <Button
                     variant="contained"
-                    onClick={() => handleEnroll(course.id)}
-                    startIcon={<PlayCircleOutline />}
+                    onClick={() => handleEnroll(course)}
+                    startIcon={isEnrolled(course.id) ? <CheckCircle /> : <PlayCircleOutline />}
                     sx={{ flex: 1 }}
+                    disabled={isEnrolled(course.id)}
                   >
-                    Enroll
+                    {isEnrolled(course.id) ? 'Enrolled' : 'Enroll'}
                   </Button>
                 </CardActions>
               </Card>
@@ -346,6 +415,31 @@ const Courses: React.FC = () => {
           ))}
         </Grid>
       </Container>
+
+      {/* Enrollment Modal */}
+      <EnrollmentModal
+        open={enrollmentModal.open}
+        onClose={handleCloseEnrollmentModal}
+        onConfirm={handleConfirmEnrollment}
+        course={enrollmentModal.course}
+        loading={loading}
+      />
+
+      {/* Success/Error Snackbar */}
+      <Snackbar
+        open={snackbar.open}
+        autoHideDuration={6000}
+        onClose={handleCloseSnackbar}
+        anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
+      >
+        <Alert 
+          onClose={handleCloseSnackbar} 
+          severity={snackbar.severity}
+          sx={{ width: '100%' }}
+        >
+          {snackbar.message}
+        </Alert>
+      </Snackbar>
     </Box>
   );
 };

@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import {
   Box,
   Container,
@@ -20,79 +21,13 @@ import {
   CheckCircle,
   School
 } from '@mui/icons-material';
-
-interface EnrolledCourse {
-  id: number;
-  title: string;
-  instructor: string;
-  instructorAvatar: string;
-  thumbnail: string;
-  progress: number;
-  totalLessons: number;
-  completedLessons: number;
-  duration: string;
-  lastAccessed: string;
-  status: 'in-progress' | 'completed' | 'not-started';
-}
+import { useEnrollment } from '../contexts/EnrollmentContext';
 
 const MyCourses: React.FC = () => {
+  const navigate = useNavigate();
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-
-  const enrolledCourses: EnrolledCourse[] = [
-    {
-      id: 1,
-      title: "Complete Web Development Bootcamp",
-      instructor: "Sarah Johnson",
-      instructorAvatar: "SJ",
-      thumbnail: "https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=400&h=250&fit=crop",
-      progress: 75,
-      totalLessons: 40,
-      completedLessons: 30,
-      duration: "12 weeks",
-      lastAccessed: "2 days ago",
-      status: 'in-progress'
-    },
-    {
-      id: 2,
-      title: "Advanced React & Redux",
-      instructor: "Mike Chen",
-      instructorAvatar: "MC",
-      thumbnail: "https://images.unsplash.com/photo-1633356122544-f134324a6cee?w=400&h=250&fit=crop",
-      progress: 100,
-      totalLessons: 24,
-      completedLessons: 24,
-      duration: "8 weeks",
-      lastAccessed: "1 week ago",
-      status: 'completed'
-    },
-    {
-      id: 3,
-      title: "Python Data Science Masterclass",
-      instructor: "Dr. Emily Rodriguez",
-      instructorAvatar: "ER",
-      thumbnail: "https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=400&h=250&fit=crop",
-      progress: 0,
-      totalLessons: 32,
-      completedLessons: 0,
-      duration: "16 weeks",
-      lastAccessed: "Never",
-      status: 'not-started'
-    },
-    {
-      id: 4,
-      title: "UI/UX Design Fundamentals",
-      instructor: "Alex Thompson",
-      instructorAvatar: "AT",
-      thumbnail: "https://images.unsplash.com/photo-1558655146-d09347e92766?w=400&h=250&fit=crop",
-      progress: 45,
-      totalLessons: 18,
-      completedLessons: 8,
-      duration: "6 weeks",
-      lastAccessed: "3 days ago",
-      status: 'in-progress'
-    }
-  ];
+  const { enrolledCourses } = useEnrollment();
 
   const getStatusColor = (status: string) => {
     switch (status) {
@@ -121,7 +56,8 @@ const MyCourses: React.FC = () => {
   };
 
   const handleContinueCourse = (courseId: number) => {
-    alert(`Continuing course ${courseId}. This will redirect to the course content.`);
+    // Navigate to course details page
+    navigate(`/course-details/${courseId}`);
   };
 
   const handleViewCertificate = (courseId: number) => {
@@ -298,7 +234,11 @@ const MyCourses: React.FC = () => {
             <Typography variant="body1" sx={{ color: 'text.secondary', mb: 3 }}>
               Start your learning journey by enrolling in a course
             </Typography>
-            <Button variant="contained" size="large" href="/courses">
+            <Button 
+              variant="contained" 
+              size="large" 
+              onClick={() => navigate('/courses')}
+            >
               Browse Courses
             </Button>
           </Box>
