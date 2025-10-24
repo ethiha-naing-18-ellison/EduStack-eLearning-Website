@@ -51,15 +51,31 @@ const Header: React.FC = () => {
     setAnchorEl(null);
   };
 
-  const navigationItems = [
-    { label: 'Home', href: '/' },
-    { label: 'Courses', href: '/courses' },
-    { label: 'Categories', href: '/categories' },
-    { label: 'Instructors', href: '/instructors' },
-    { label: 'My Courses', href: '/mycourses' },
-    { label: 'About', href: '/about' },
-    { label: 'Contact', href: '/contact' }
-  ];
+  const getNavigationItems = () => {
+    const baseItems = [
+      { label: 'Home', href: '/' },
+      { label: 'Categories', href: '/categories' },
+      { label: 'Instructors', href: '/instructors' },
+      { label: 'About', href: '/about' },
+      { label: 'Contact', href: '/contact' }
+    ];
+
+    if (user?.role === 'INSTRUCTOR') {
+      return [
+        ...baseItems,
+        { label: 'Manage Courses', href: '/instructor-courses' },
+        { label: 'My Students', href: '/my-students' }
+      ];
+    } else {
+      return [
+        ...baseItems,
+        { label: 'Courses', href: '/courses' },
+        { label: 'My Courses', href: '/mycourses' }
+      ];
+    }
+  };
+
+  const navigationItems = getNavigationItems();
 
   const drawer = (
     <Box onClick={handleDrawerToggle} sx={{ textAlign: 'center' }}>

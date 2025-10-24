@@ -17,6 +17,9 @@ class ApiService {
   ): Promise<ApiResponse<T>> {
     const token = this.getAuthToken();
     
+    console.log('API Request:', endpoint);
+    console.log('Auth Token:', token ? 'Present' : 'Missing');
+    
     const defaultHeaders: HeadersInit = {
       'Content-Type': 'application/json',
     };
@@ -65,6 +68,31 @@ class ApiService {
 
   async getEnrollmentByCourse(courseId: string): Promise<ApiResponse<any>> {
     return this.makeRequest(`/enrollments/course/${courseId}`);
+  }
+
+  // Course management API methods (for instructors)
+  async getMyCourses(): Promise<ApiResponse<any[]>> {
+    return this.makeRequest('/courses/my-courses');
+  }
+
+  async createCourse(courseData: any): Promise<ApiResponse<any>> {
+    return this.makeRequest('/courses', {
+      method: 'POST',
+      body: JSON.stringify(courseData),
+    });
+  }
+
+  async updateCourse(courseId: string, courseData: any): Promise<ApiResponse<any>> {
+    return this.makeRequest(`/courses/${courseId}`, {
+      method: 'PUT',
+      body: JSON.stringify(courseData),
+    });
+  }
+
+  async deleteCourse(courseId: string): Promise<ApiResponse<any>> {
+    return this.makeRequest(`/courses/${courseId}`, {
+      method: 'DELETE',
+    });
   }
 }
 

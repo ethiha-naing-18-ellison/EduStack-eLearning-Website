@@ -190,3 +190,245 @@ ORDER BY e.enrolledat DESC
 2025-10-24 10:45:17.771 +08:00 [INF] Executed action EduStack.API.Controllers.EnrollmentsController.GetUserEnrollments (EduStack.API) in 14.36ms
 2025-10-24 10:45:17.775 +08:00 [INF] Executed endpoint 'EduStack.API.Controllers.EnrollmentsController.GetUserEnrollments (EduStack.API)'
 2025-10-24 10:45:17.778 +08:00 [INF] Request finished HTTP/1.1 GET http://localhost:5000/api/enrollments/my-enrollments - 200 null application/json; charset=utf-8 56.1796ms
+2025-10-24 10:45:30.076 +08:00 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5000/api/enrollments/enroll/550e8400-e29b-41d4-a716-446655440100 - null null
+2025-10-24 10:45:30.088 +08:00 [INF] CORS policy execution successful.
+2025-10-24 10:45:30.093 +08:00 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5000/api/enrollments/enroll/550e8400-e29b-41d4-a716-446655440100 - 204 null null 17.254ms
+2025-10-24 10:45:30.102 +08:00 [INF] Request starting HTTP/1.1 POST http://localhost:5000/api/enrollments/enroll/550e8400-e29b-41d4-a716-446655440100 - application/json 0
+2025-10-24 10:45:30.111 +08:00 [INF] CORS policy execution successful.
+2025-10-24 10:45:30.114 +08:00 [INF] Executing endpoint 'EduStack.API.Controllers.EnrollmentsController.EnrollInCourse (EduStack.API)'
+2025-10-24 10:45:30.133 +08:00 [INF] Route matched with {action = "EnrollInCourse", controller = "Enrollments"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] EnrollInCourse(System.Guid) on controller EduStack.API.Controllers.EnrollmentsController (EduStack.API).
+2025-10-24 10:45:30.185 +08:00 [INF] Executed DbCommand (2ms) [Parameters=[@__userId_0='?' (DbType = Guid), @__courseId_1='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM enrollments AS e
+    WHERE e.userid = @__userId_0 AND e.courseid = @__courseId_1)
+2025-10-24 10:45:30.225 +08:00 [INF] Executed DbCommand (5ms) [Parameters=[@__courseId_0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+SELECT c.id, c.category, c.createdat, c.description, c.duration, c.instructorid, c.ispublished, c.level, c.price, c.thumbnail, c.title, c.updatedat
+FROM courses AS c
+WHERE c.id = @__courseId_0 AND c.ispublished
+LIMIT 1
+2025-10-24 10:45:30.555 +08:00 [INF] Executed DbCommand (17ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?' (DbType = DateTime), @p2='?' (DbType = Guid), @p3='?' (DbType = DateTime), @p4='?', @p5='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO enrollments (id, completedat, courseid, enrolledat, status, userid)
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5);
+2025-10-24 10:45:30.578 +08:00 [INF] User "ea21e563-4cb9-4e69-b716-17660423b601" enrolled in course "550e8400-e29b-41d4-a716-446655440100"
+2025-10-24 10:45:30.582 +08:00 [INF] Executing CreatedAtActionResult, writing value of type 'EduStack.Core.DTOs.Common.ApiResponse`1[[EduStack.Core.DTOs.Enrollment.EnrollmentResponseDto, EduStack.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2025-10-24 10:45:30.611 +08:00 [INF] Executed action EduStack.API.Controllers.EnrollmentsController.EnrollInCourse (EduStack.API) in 472.5432ms
+2025-10-24 10:45:30.616 +08:00 [INF] Executed endpoint 'EduStack.API.Controllers.EnrollmentsController.EnrollInCourse (EduStack.API)'
+2025-10-24 10:45:30.619 +08:00 [INF] Request finished HTTP/1.1 POST http://localhost:5000/api/enrollments/enroll/550e8400-e29b-41d4-a716-446655440100 - 201 null application/json; charset=utf-8 516.4781ms
+2025-10-24 10:45:30.628 +08:00 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5000/api/enrollments/my-enrollments - null null
+2025-10-24 10:45:30.634 +08:00 [INF] CORS policy execution successful.
+2025-10-24 10:45:30.637 +08:00 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5000/api/enrollments/my-enrollments - 204 null null 9.0982ms
+2025-10-24 10:45:30.644 +08:00 [INF] Request starting HTTP/1.1 GET http://localhost:5000/api/enrollments/my-enrollments - application/json null
+2025-10-24 10:45:30.652 +08:00 [INF] CORS policy execution successful.
+2025-10-24 10:45:30.655 +08:00 [INF] Executing endpoint 'EduStack.API.Controllers.EnrollmentsController.GetUserEnrollments (EduStack.API)'
+2025-10-24 10:45:30.658 +08:00 [INF] Route matched with {action = "GetUserEnrollments", controller = "Enrollments"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetUserEnrollments() on controller EduStack.API.Controllers.EnrollmentsController (EduStack.API).
+2025-10-24 10:45:30.667 +08:00 [INF] Executed DbCommand (2ms) [Parameters=[@__userId_0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+SELECT e.id, e.completedat, e.courseid, e.enrolledat, e.status, e.userid, c.id, c.category, c.createdat, c.description, c.duration, c.instructorid, c.ispublished, c.level, c.price, c.thumbnail, c.title, c.updatedat
+FROM enrollments AS e
+INNER JOIN courses AS c ON e.courseid = c.id
+WHERE e.userid = @__userId_0
+ORDER BY e.enrolledat DESC
+2025-10-24 10:45:30.679 +08:00 [INF] Executing OkObjectResult, writing value of type 'EduStack.Core.DTOs.Common.ApiResponse`1[[System.Collections.Generic.IEnumerable`1[[EduStack.Core.DTOs.Enrollment.EnrollmentResponseDto, EduStack.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-10-24 10:45:30.683 +08:00 [INF] Executed action EduStack.API.Controllers.EnrollmentsController.GetUserEnrollments (EduStack.API) in 20.0509ms
+2025-10-24 10:45:30.687 +08:00 [INF] Executed endpoint 'EduStack.API.Controllers.EnrollmentsController.GetUserEnrollments (EduStack.API)'
+2025-10-24 10:45:30.690 +08:00 [INF] Request finished HTTP/1.1 GET http://localhost:5000/api/enrollments/my-enrollments - 200 null application/json; charset=utf-8 46.01ms
+2025-10-24 10:45:46.292 +08:00 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5000/api/enrollments/my-enrollments - null null
+2025-10-24 10:45:46.292 +08:00 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5000/api/enrollments/my-enrollments - null null
+2025-10-24 10:45:46.302 +08:00 [INF] CORS policy execution successful.
+2025-10-24 10:45:46.306 +08:00 [INF] CORS policy execution successful.
+2025-10-24 10:45:46.311 +08:00 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5000/api/enrollments/my-enrollments - 204 null null 18.7529ms
+2025-10-24 10:45:46.312 +08:00 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5000/api/enrollments/my-enrollments - 204 null null 19.728ms
+2025-10-24 10:45:46.326 +08:00 [INF] Request starting HTTP/1.1 GET http://localhost:5000/api/enrollments/my-enrollments - application/json null
+2025-10-24 10:45:46.338 +08:00 [INF] CORS policy execution successful.
+2025-10-24 10:45:46.341 +08:00 [INF] Executing endpoint 'EduStack.API.Controllers.EnrollmentsController.GetUserEnrollments (EduStack.API)'
+2025-10-24 10:45:46.344 +08:00 [INF] Route matched with {action = "GetUserEnrollments", controller = "Enrollments"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetUserEnrollments() on controller EduStack.API.Controllers.EnrollmentsController (EduStack.API).
+2025-10-24 10:45:46.352 +08:00 [INF] Executed DbCommand (1ms) [Parameters=[@__userId_0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+SELECT e.id, e.completedat, e.courseid, e.enrolledat, e.status, e.userid, c.id, c.category, c.createdat, c.description, c.duration, c.instructorid, c.ispublished, c.level, c.price, c.thumbnail, c.title, c.updatedat
+FROM enrollments AS e
+INNER JOIN courses AS c ON e.courseid = c.id
+WHERE e.userid = @__userId_0
+ORDER BY e.enrolledat DESC
+2025-10-24 10:45:46.360 +08:00 [INF] Executing OkObjectResult, writing value of type 'EduStack.Core.DTOs.Common.ApiResponse`1[[System.Collections.Generic.IEnumerable`1[[EduStack.Core.DTOs.Enrollment.EnrollmentResponseDto, EduStack.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-10-24 10:45:46.366 +08:00 [INF] Executed action EduStack.API.Controllers.EnrollmentsController.GetUserEnrollments (EduStack.API) in 15.7068ms
+2025-10-24 10:45:46.367 +08:00 [INF] Request starting HTTP/1.1 GET http://localhost:5000/api/enrollments/my-enrollments - application/json null
+2025-10-24 10:45:46.373 +08:00 [INF] Executed endpoint 'EduStack.API.Controllers.EnrollmentsController.GetUserEnrollments (EduStack.API)'
+2025-10-24 10:45:46.377 +08:00 [INF] CORS policy execution successful.
+2025-10-24 10:45:46.382 +08:00 [INF] Request finished HTTP/1.1 GET http://localhost:5000/api/enrollments/my-enrollments - 200 null application/json; charset=utf-8 56.1119ms
+2025-10-24 10:45:46.383 +08:00 [INF] Executing endpoint 'EduStack.API.Controllers.EnrollmentsController.GetUserEnrollments (EduStack.API)'
+2025-10-24 10:45:46.396 +08:00 [INF] Route matched with {action = "GetUserEnrollments", controller = "Enrollments"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetUserEnrollments() on controller EduStack.API.Controllers.EnrollmentsController (EduStack.API).
+2025-10-24 10:45:46.410 +08:00 [INF] Executed DbCommand (2ms) [Parameters=[@__userId_0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+SELECT e.id, e.completedat, e.courseid, e.enrolledat, e.status, e.userid, c.id, c.category, c.createdat, c.description, c.duration, c.instructorid, c.ispublished, c.level, c.price, c.thumbnail, c.title, c.updatedat
+FROM enrollments AS e
+INNER JOIN courses AS c ON e.courseid = c.id
+WHERE e.userid = @__userId_0
+ORDER BY e.enrolledat DESC
+2025-10-24 10:45:46.422 +08:00 [INF] Executing OkObjectResult, writing value of type 'EduStack.Core.DTOs.Common.ApiResponse`1[[System.Collections.Generic.IEnumerable`1[[EduStack.Core.DTOs.Enrollment.EnrollmentResponseDto, EduStack.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-10-24 10:45:46.428 +08:00 [INF] Executed action EduStack.API.Controllers.EnrollmentsController.GetUserEnrollments (EduStack.API) in 22.2688ms
+2025-10-24 10:45:46.433 +08:00 [INF] Executed endpoint 'EduStack.API.Controllers.EnrollmentsController.GetUserEnrollments (EduStack.API)'
+2025-10-24 10:45:46.436 +08:00 [INF] Request finished HTTP/1.1 GET http://localhost:5000/api/enrollments/my-enrollments - 200 null application/json; charset=utf-8 69.493ms
+2025-10-24 10:45:48.427 +08:00 [INF] Request starting HTTP/1.1 GET http://localhost:5000/api/enrollments/my-enrollments - application/json null
+2025-10-24 10:45:48.435 +08:00 [INF] CORS policy execution successful.
+2025-10-24 10:45:48.438 +08:00 [INF] Executing endpoint 'EduStack.API.Controllers.EnrollmentsController.GetUserEnrollments (EduStack.API)'
+2025-10-24 10:45:48.442 +08:00 [INF] Route matched with {action = "GetUserEnrollments", controller = "Enrollments"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetUserEnrollments() on controller EduStack.API.Controllers.EnrollmentsController (EduStack.API).
+2025-10-24 10:45:48.451 +08:00 [INF] Executed DbCommand (2ms) [Parameters=[@__userId_0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+SELECT e.id, e.completedat, e.courseid, e.enrolledat, e.status, e.userid, c.id, c.category, c.createdat, c.description, c.duration, c.instructorid, c.ispublished, c.level, c.price, c.thumbnail, c.title, c.updatedat
+FROM enrollments AS e
+INNER JOIN courses AS c ON e.courseid = c.id
+WHERE e.userid = @__userId_0
+ORDER BY e.enrolledat DESC
+2025-10-24 10:45:48.460 +08:00 [INF] Executing OkObjectResult, writing value of type 'EduStack.Core.DTOs.Common.ApiResponse`1[[System.Collections.Generic.IEnumerable`1[[EduStack.Core.DTOs.Enrollment.EnrollmentResponseDto, EduStack.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-10-24 10:45:48.466 +08:00 [INF] Executed action EduStack.API.Controllers.EnrollmentsController.GetUserEnrollments (EduStack.API) in 17.948ms
+2025-10-24 10:45:48.468 +08:00 [INF] Request starting HTTP/1.1 GET http://localhost:5000/api/enrollments/my-enrollments - application/json null
+2025-10-24 10:45:48.473 +08:00 [INF] Executed endpoint 'EduStack.API.Controllers.EnrollmentsController.GetUserEnrollments (EduStack.API)'
+2025-10-24 10:45:48.483 +08:00 [INF] CORS policy execution successful.
+2025-10-24 10:45:48.484 +08:00 [INF] Request finished HTTP/1.1 GET http://localhost:5000/api/enrollments/my-enrollments - 200 null application/json; charset=utf-8 57.3503ms
+2025-10-24 10:45:48.492 +08:00 [INF] Executing endpoint 'EduStack.API.Controllers.EnrollmentsController.GetUserEnrollments (EduStack.API)'
+2025-10-24 10:45:48.501 +08:00 [INF] Route matched with {action = "GetUserEnrollments", controller = "Enrollments"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetUserEnrollments() on controller EduStack.API.Controllers.EnrollmentsController (EduStack.API).
+2025-10-24 10:45:48.509 +08:00 [INF] Executed DbCommand (2ms) [Parameters=[@__userId_0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+SELECT e.id, e.completedat, e.courseid, e.enrolledat, e.status, e.userid, c.id, c.category, c.createdat, c.description, c.duration, c.instructorid, c.ispublished, c.level, c.price, c.thumbnail, c.title, c.updatedat
+FROM enrollments AS e
+INNER JOIN courses AS c ON e.courseid = c.id
+WHERE e.userid = @__userId_0
+ORDER BY e.enrolledat DESC
+2025-10-24 10:45:48.519 +08:00 [INF] Executing OkObjectResult, writing value of type 'EduStack.Core.DTOs.Common.ApiResponse`1[[System.Collections.Generic.IEnumerable`1[[EduStack.Core.DTOs.Enrollment.EnrollmentResponseDto, EduStack.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-10-24 10:45:48.524 +08:00 [INF] Executed action EduStack.API.Controllers.EnrollmentsController.GetUserEnrollments (EduStack.API) in 17.602ms
+2025-10-24 10:45:48.528 +08:00 [INF] Executed endpoint 'EduStack.API.Controllers.EnrollmentsController.GetUserEnrollments (EduStack.API)'
+2025-10-24 10:45:48.533 +08:00 [INF] Request finished HTTP/1.1 GET http://localhost:5000/api/enrollments/my-enrollments - 200 null application/json; charset=utf-8 65.431ms
+2025-10-24 11:01:53.757 +08:00 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5000/api/enrollments/my-enrollments - null null
+2025-10-24 11:01:53.765 +08:00 [INF] CORS policy execution successful.
+2025-10-24 11:01:53.768 +08:00 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5000/api/enrollments/my-enrollments - 204 null null 10.8067ms
+2025-10-24 11:01:53.780 +08:00 [INF] Request starting HTTP/1.1 GET http://localhost:5000/api/enrollments/my-enrollments - application/json null
+2025-10-24 11:01:53.788 +08:00 [INF] CORS policy execution successful.
+2025-10-24 11:01:53.791 +08:00 [INF] Executing endpoint 'EduStack.API.Controllers.EnrollmentsController.GetUserEnrollments (EduStack.API)'
+2025-10-24 11:01:53.795 +08:00 [INF] Route matched with {action = "GetUserEnrollments", controller = "Enrollments"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetUserEnrollments() on controller EduStack.API.Controllers.EnrollmentsController (EduStack.API).
+2025-10-24 11:01:53.874 +08:00 [INF] Executed DbCommand (15ms) [Parameters=[@__userId_0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+SELECT e.id, e.completedat, e.courseid, e.enrolledat, e.status, e.userid, c.id, c.category, c.createdat, c.description, c.duration, c.instructorid, c.ispublished, c.level, c.price, c.thumbnail, c.title, c.updatedat
+FROM enrollments AS e
+INNER JOIN courses AS c ON e.courseid = c.id
+WHERE e.userid = @__userId_0
+ORDER BY e.enrolledat DESC
+2025-10-24 11:01:53.883 +08:00 [INF] Executing OkObjectResult, writing value of type 'EduStack.Core.DTOs.Common.ApiResponse`1[[System.Collections.Generic.IEnumerable`1[[EduStack.Core.DTOs.Enrollment.EnrollmentResponseDto, EduStack.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-10-24 11:01:53.889 +08:00 [INF] Executed action EduStack.API.Controllers.EnrollmentsController.GetUserEnrollments (EduStack.API) in 88.1967ms
+2025-10-24 11:01:53.894 +08:00 [INF] Executed endpoint 'EduStack.API.Controllers.EnrollmentsController.GetUserEnrollments (EduStack.API)'
+2025-10-24 11:01:53.898 +08:00 [INF] Request finished HTTP/1.1 GET http://localhost:5000/api/enrollments/my-enrollments - 200 null application/json; charset=utf-8 118.0925ms
+2025-10-24 11:02:59.513 +08:00 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5000/api/enrollments/my-enrollments - null null
+2025-10-24 11:02:59.516 +08:00 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5000/api/enrollments/my-enrollments - null null
+2025-10-24 11:02:59.524 +08:00 [INF] CORS policy execution successful.
+2025-10-24 11:02:59.529 +08:00 [INF] CORS policy execution successful.
+2025-10-24 11:02:59.533 +08:00 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5000/api/enrollments/my-enrollments - 204 null null 20.4767ms
+2025-10-24 11:02:59.534 +08:00 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5000/api/enrollments/my-enrollments - 204 null null 18.2229ms
+2025-10-24 11:02:59.553 +08:00 [INF] Request starting HTTP/1.1 GET http://localhost:5000/api/enrollments/my-enrollments - application/json null
+2025-10-24 11:02:59.561 +08:00 [INF] CORS policy execution successful.
+2025-10-24 11:02:59.564 +08:00 [INF] Executing endpoint 'EduStack.API.Controllers.EnrollmentsController.GetUserEnrollments (EduStack.API)'
+2025-10-24 11:02:59.568 +08:00 [INF] Route matched with {action = "GetUserEnrollments", controller = "Enrollments"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetUserEnrollments() on controller EduStack.API.Controllers.EnrollmentsController (EduStack.API).
+2025-10-24 11:02:59.578 +08:00 [INF] Executed DbCommand (2ms) [Parameters=[@__userId_0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+SELECT e.id, e.completedat, e.courseid, e.enrolledat, e.status, e.userid, c.id, c.category, c.createdat, c.description, c.duration, c.instructorid, c.ispublished, c.level, c.price, c.thumbnail, c.title, c.updatedat
+FROM enrollments AS e
+INNER JOIN courses AS c ON e.courseid = c.id
+WHERE e.userid = @__userId_0
+ORDER BY e.enrolledat DESC
+2025-10-24 11:02:59.586 +08:00 [INF] Executing OkObjectResult, writing value of type 'EduStack.Core.DTOs.Common.ApiResponse`1[[System.Collections.Generic.IEnumerable`1[[EduStack.Core.DTOs.Enrollment.EnrollmentResponseDto, EduStack.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-10-24 11:02:59.590 +08:00 [INF] Executed action EduStack.API.Controllers.EnrollmentsController.GetUserEnrollments (EduStack.API) in 16.5197ms
+2025-10-24 11:02:59.592 +08:00 [INF] Request starting HTTP/1.1 GET http://localhost:5000/api/enrollments/my-enrollments - application/json null
+2025-10-24 11:02:59.598 +08:00 [INF] Executed endpoint 'EduStack.API.Controllers.EnrollmentsController.GetUserEnrollments (EduStack.API)'
+2025-10-24 11:02:59.603 +08:00 [INF] CORS policy execution successful.
+2025-10-24 11:02:59.612 +08:00 [INF] Request finished HTTP/1.1 GET http://localhost:5000/api/enrollments/my-enrollments - 200 null application/json; charset=utf-8 58.9941ms
+2025-10-24 11:02:59.614 +08:00 [INF] Executing endpoint 'EduStack.API.Controllers.EnrollmentsController.GetUserEnrollments (EduStack.API)'
+2025-10-24 11:02:59.629 +08:00 [INF] Route matched with {action = "GetUserEnrollments", controller = "Enrollments"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetUserEnrollments() on controller EduStack.API.Controllers.EnrollmentsController (EduStack.API).
+2025-10-24 11:02:59.638 +08:00 [INF] Executed DbCommand (2ms) [Parameters=[@__userId_0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+SELECT e.id, e.completedat, e.courseid, e.enrolledat, e.status, e.userid, c.id, c.category, c.createdat, c.description, c.duration, c.instructorid, c.ispublished, c.level, c.price, c.thumbnail, c.title, c.updatedat
+FROM enrollments AS e
+INNER JOIN courses AS c ON e.courseid = c.id
+WHERE e.userid = @__userId_0
+ORDER BY e.enrolledat DESC
+2025-10-24 11:02:59.647 +08:00 [INF] Executing OkObjectResult, writing value of type 'EduStack.Core.DTOs.Common.ApiResponse`1[[System.Collections.Generic.IEnumerable`1[[EduStack.Core.DTOs.Enrollment.EnrollmentResponseDto, EduStack.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-10-24 11:02:59.652 +08:00 [INF] Executed action EduStack.API.Controllers.EnrollmentsController.GetUserEnrollments (EduStack.API) in 16.6028ms
+2025-10-24 11:02:59.656 +08:00 [INF] Executed endpoint 'EduStack.API.Controllers.EnrollmentsController.GetUserEnrollments (EduStack.API)'
+2025-10-24 11:02:59.661 +08:00 [INF] Request finished HTTP/1.1 GET http://localhost:5000/api/enrollments/my-enrollments - 200 null application/json; charset=utf-8 68.488ms
+2025-10-24 11:03:45.081 +08:00 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5000/api/auth/register - null null
+2025-10-24 11:03:45.090 +08:00 [INF] CORS policy execution successful.
+2025-10-24 11:03:45.094 +08:00 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5000/api/auth/register - 204 null null 12.5802ms
+2025-10-24 11:03:45.102 +08:00 [INF] Request starting HTTP/1.1 POST http://localhost:5000/api/auth/register - application/json 103
+2025-10-24 11:03:45.111 +08:00 [INF] CORS policy execution successful.
+2025-10-24 11:03:45.114 +08:00 [INF] Executing endpoint 'EduStack.API.Controllers.AuthController.Register (EduStack.API)'
+2025-10-24 11:03:45.125 +08:00 [INF] Route matched with {action = "Register", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Register(EduStack.Core.DTOs.Auth.RegisterUserDto) on controller EduStack.API.Controllers.AuthController (EduStack.API).
+2025-10-24 11:03:45.278 +08:00 [INF] Executed DbCommand (7ms) [Parameters=[@__email_0='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT EXISTS (
+    SELECT 1
+    FROM users AS u
+    WHERE u.email = @__email_0)
+2025-10-24 11:03:45.699 +08:00 [INF] Executed DbCommand (6ms) [Parameters=[@p0='?' (DbType = Guid), @p1='?', @p2='?' (DbType = DateTime), @p3='?', @p4='?', @p5='?', @p6='?', @p7='?' (DbType = DateTime)], CommandType='"Text"', CommandTimeout='30']
+INSERT INTO users (id, avatar, createdat, email, fullname, passwordhash, role, updatedat)
+VALUES (@p0, @p1, @p2, @p3, @p4, @p5, @p6, @p7)
+RETURNING isactive;
+2025-10-24 11:03:45.732 +08:00 [INF] User registered successfully: thihanaing1842003@gmail.com
+2025-10-24 11:03:45.736 +08:00 [INF] Executing CreatedAtActionResult, writing value of type 'EduStack.Core.DTOs.Common.ApiResponse`1[[EduStack.Core.DTOs.Auth.LoginResponseDto, EduStack.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2025-10-24 11:03:45.744 +08:00 [INF] Executed action EduStack.API.Controllers.AuthController.Register (EduStack.API) in 613.7128ms
+2025-10-24 11:03:45.748 +08:00 [INF] Executed endpoint 'EduStack.API.Controllers.AuthController.Register (EduStack.API)'
+2025-10-24 11:03:45.751 +08:00 [INF] Request finished HTTP/1.1 POST http://localhost:5000/api/auth/register - 201 null application/json; charset=utf-8 648.809ms
+2025-10-24 11:04:12.065 +08:00 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5000/api/auth/login - null null
+2025-10-24 11:04:12.076 +08:00 [INF] CORS policy execution successful.
+2025-10-24 11:04:12.079 +08:00 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5000/api/auth/login - 204 null null 14.2577ms
+2025-10-24 11:04:12.098 +08:00 [INF] Request starting HTTP/1.1 POST http://localhost:5000/api/auth/login - application/json 59
+2025-10-24 11:04:12.106 +08:00 [INF] CORS policy execution successful.
+2025-10-24 11:04:12.110 +08:00 [INF] Executing endpoint 'EduStack.API.Controllers.AuthController.Login (EduStack.API)'
+2025-10-24 11:04:12.117 +08:00 [INF] Route matched with {action = "Login", controller = "Auth"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] Login(EduStack.Core.DTOs.Auth.LoginUserDto) on controller EduStack.API.Controllers.AuthController (EduStack.API).
+2025-10-24 11:04:12.142 +08:00 [INF] Executed DbCommand (1ms) [Parameters=[@__loginDto_Email_0='?'], CommandType='"Text"', CommandTimeout='30']
+SELECT u.id, u.avatar, u.createdat, u.email, u.fullname, u.isactive, u.passwordhash, u.role, u.updatedat
+FROM users AS u
+WHERE u.email = @__loginDto_Email_0 AND u.isactive
+LIMIT 1
+2025-10-24 11:04:12.363 +08:00 [INF] User logged in successfully: thihanaing1842003@gmail.com
+2025-10-24 11:04:12.366 +08:00 [INF] Executing OkObjectResult, writing value of type 'EduStack.Core.DTOs.Common.ApiResponse`1[[EduStack.Core.DTOs.Auth.LoginResponseDto, EduStack.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]'.
+2025-10-24 11:04:12.371 +08:00 [INF] Executed action EduStack.API.Controllers.AuthController.Login (EduStack.API) in 247.3123ms
+2025-10-24 11:04:12.375 +08:00 [INF] Executed endpoint 'EduStack.API.Controllers.AuthController.Login (EduStack.API)'
+2025-10-24 11:04:12.378 +08:00 [INF] Request finished HTTP/1.1 POST http://localhost:5000/api/auth/login - 200 null application/json; charset=utf-8 280.7344ms
+2025-10-24 11:04:15.254 +08:00 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5000/api/courses/my-courses - null null
+2025-10-24 11:04:15.255 +08:00 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5000/api/courses/my-courses - null null
+2025-10-24 11:04:15.264 +08:00 [INF] CORS policy execution successful.
+2025-10-24 11:04:15.270 +08:00 [INF] CORS policy execution successful.
+2025-10-24 11:04:15.272 +08:00 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5000/api/courses/my-courses - 204 null null 17.9476ms
+2025-10-24 11:04:15.273 +08:00 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5000/api/courses/my-courses - 204 null null 18.6066ms
+2025-10-24 11:04:15.293 +08:00 [INF] Request starting HTTP/1.1 GET http://localhost:5000/api/courses/my-courses - application/json null
+2025-10-24 11:04:15.300 +08:00 [INF] CORS policy execution successful.
+2025-10-24 11:04:15.307 +08:00 [INF] Executing endpoint 'EduStack.API.Controllers.CoursesController.GetCourseById (EduStack.API)'
+2025-10-24 11:04:15.316 +08:00 [INF] Route matched with {action = "GetCourseById", controller = "Courses"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetCourseById(System.Guid) on controller EduStack.API.Controllers.CoursesController (EduStack.API).
+2025-10-24 11:04:15.327 +08:00 [INF] Executing BadRequestObjectResult, writing value of type 'Microsoft.AspNetCore.Mvc.ValidationProblemDetails'.
+2025-10-24 11:04:15.358 +08:00 [INF] Executed action EduStack.API.Controllers.CoursesController.GetCourseById (EduStack.API) in 35.0485ms
+2025-10-24 11:04:15.360 +08:00 [INF] Request starting HTTP/1.1 GET http://localhost:5000/api/courses/my-courses - application/json null
+2025-10-24 11:04:15.366 +08:00 [INF] Executed endpoint 'EduStack.API.Controllers.CoursesController.GetCourseById (EduStack.API)'
+2025-10-24 11:04:15.370 +08:00 [INF] CORS policy execution successful.
+2025-10-24 11:04:15.374 +08:00 [INF] Request finished HTTP/1.1 GET http://localhost:5000/api/courses/my-courses - 400 null application/problem+json; charset=utf-8 81.7072ms
+2025-10-24 11:04:15.376 +08:00 [INF] Executing endpoint 'EduStack.API.Controllers.CoursesController.GetCourseById (EduStack.API)'
+2025-10-24 11:04:15.389 +08:00 [INF] Route matched with {action = "GetCourseById", controller = "Courses"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetCourseById(System.Guid) on controller EduStack.API.Controllers.CoursesController (EduStack.API).
+2025-10-24 11:04:15.396 +08:00 [INF] Executing BadRequestObjectResult, writing value of type 'Microsoft.AspNetCore.Mvc.ValidationProblemDetails'.
+2025-10-24 11:04:15.400 +08:00 [INF] Executed action EduStack.API.Controllers.CoursesController.GetCourseById (EduStack.API) in 5.366ms
+2025-10-24 11:04:15.405 +08:00 [INF] Executed endpoint 'EduStack.API.Controllers.CoursesController.GetCourseById (EduStack.API)'
+2025-10-24 11:04:15.408 +08:00 [INF] Request finished HTTP/1.1 GET http://localhost:5000/api/courses/my-courses - 400 null application/problem+json; charset=utf-8 47.8052ms
+2025-10-24 11:05:48.661 +08:00 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5000/api/courses - null null
+2025-10-24 11:05:48.669 +08:00 [INF] CORS policy execution successful.
+2025-10-24 11:05:48.672 +08:00 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5000/api/courses - 204 null null 11.4273ms
+2025-10-24 11:05:48.685 +08:00 [INF] Request starting HTTP/1.1 POST http://localhost:5000/api/courses - application/json 254
+2025-10-24 11:05:48.694 +08:00 [INF] CORS policy execution successful.
+2025-10-24 11:05:48.697 +08:00 [INF] Executing endpoint '405 HTTP Method Not Supported'
+2025-10-24 11:05:48.701 +08:00 [INF] Executed endpoint '405 HTTP Method Not Supported'
+2025-10-24 11:05:48.704 +08:00 [INF] Request finished HTTP/1.1 POST http://localhost:5000/api/courses - 405 0 null 19.9085ms
+2025-10-24 11:05:49.687 +08:00 [INF] Request starting HTTP/1.1 POST http://localhost:5000/api/courses - application/json 254
+2025-10-24 11:05:49.694 +08:00 [INF] CORS policy execution successful.
+2025-10-24 11:05:49.697 +08:00 [INF] Executing endpoint '405 HTTP Method Not Supported'
+2025-10-24 11:05:49.700 +08:00 [INF] Executed endpoint '405 HTTP Method Not Supported'
+2025-10-24 11:05:49.705 +08:00 [INF] Request finished HTTP/1.1 POST http://localhost:5000/api/courses - 405 0 null 17.6847ms
+2025-10-24 11:05:49.895 +08:00 [INF] Request starting HTTP/1.1 POST http://localhost:5000/api/courses - application/json 254
+2025-10-24 11:05:49.904 +08:00 [INF] CORS policy execution successful.
+2025-10-24 11:05:49.907 +08:00 [INF] Executing endpoint '405 HTTP Method Not Supported'
+2025-10-24 11:05:49.909 +08:00 [INF] Executed endpoint '405 HTTP Method Not Supported'
+2025-10-24 11:05:49.912 +08:00 [INF] Request finished HTTP/1.1 POST http://localhost:5000/api/courses - 405 0 null 17.053ms
+2025-10-24 11:06:05.665 +08:00 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5000/api/courses - null null
+2025-10-24 11:06:05.672 +08:00 [INF] CORS policy execution successful.
+2025-10-24 11:06:05.675 +08:00 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5000/api/courses - 204 null null 9.318ms
+2025-10-24 11:06:05.683 +08:00 [INF] Request starting HTTP/1.1 POST http://localhost:5000/api/courses - application/json 254
+2025-10-24 11:06:05.691 +08:00 [INF] CORS policy execution successful.
+2025-10-24 11:06:05.695 +08:00 [INF] Executing endpoint '405 HTTP Method Not Supported'
+2025-10-24 11:06:05.698 +08:00 [INF] Executed endpoint '405 HTTP Method Not Supported'
+2025-10-24 11:06:05.702 +08:00 [INF] Request finished HTTP/1.1 POST http://localhost:5000/api/courses - 405 0 null 18.4294ms
+2025-10-24 11:07:20.132 +08:00 [INF] Application is shutting down...

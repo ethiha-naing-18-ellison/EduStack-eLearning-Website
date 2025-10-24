@@ -21,6 +21,7 @@ public class Lesson
     public int Duration { get; set; } // in minutes
 
     [Required]
+    [Column("OrderIndex")]
     public int Order { get; set; }
 
     [Required]

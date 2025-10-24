@@ -9,4 +9,9 @@ public interface ICourseService
     Task<IEnumerable<CourseResponseDto>> GetCoursesByCategoryAsync(string category);
     Task<CourseResponseDto?> GetCourseByIdAsync(Guid courseId);
     Task<IEnumerable<CourseResponseDto>> GetCoursesByInstructorAsync(Guid instructorId);
+    
+    // CRUD operations for instructors
+    Task<CourseResponseDto> CreateCourseAsync(CreateCourseDto courseDto, Guid instructorId);
+    Task<CourseResponseDto?> UpdateCourseAsync(Guid courseId, UpdateCourseDto courseDto, Guid instructorId);
+    Task<bool> DeleteCourseAsync(Guid courseId, Guid instructorId);
 }

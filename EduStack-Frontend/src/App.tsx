@@ -12,6 +12,7 @@ import About from './components/About';
 import Contact from './components/Contact';
 import MyCourses from './pages/MyCourses';
 import CourseDetails from './pages/CourseDetails';
+import InstructorCourses from './pages/InstructorCourses';
 import { EnrollmentProvider } from './contexts/EnrollmentContext';
 import { AuthProvider } from './contexts/AuthContext';
 
@@ -45,6 +46,7 @@ const App: React.FC = () => {
               <Route path="/auth" element={<Auth />} />
               <Route path="/mycourses" element={<Layout><MyCourses /></Layout>} />
               <Route path="/course-details/:id" element={<Layout><CourseDetails /></Layout>} />
+              <Route path="/instructor-courses" element={<Layout><InstructorCourses /></Layout>} />
             </Routes>
           </Router>
         </EnrollmentProvider>

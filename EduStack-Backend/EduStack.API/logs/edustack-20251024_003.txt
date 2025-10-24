@@ -1,0 +1,653 @@
+2025-10-24 11:07:56.900 +08:00 [INF] Testing database connection...
+2025-10-24 11:07:58.049 +08:00 [INF] Database connection test: true
+2025-10-24 11:07:58.071 +08:00 [INF] Database connection successful
+2025-10-24 11:07:58.093 +08:00 [INF] EduStack API starting up...
+2025-10-24 11:07:58.123 +08:00 [INF] User profile is available. Using 'C:\Users\TUF\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-10-24 11:07:58.254 +08:00 [INF] Now listening on: http://localhost:5000
+2025-10-24 11:07:58.257 +08:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-10-24 11:07:58.263 +08:00 [INF] Hosting environment: Development
+2025-10-24 11:07:58.266 +08:00 [INF] Content root path: C:\xampp\htdocs\EduStack-eLearning-Website\EduStack-Backend\EduStack.API
+2025-10-24 11:07:59.877 +08:00 [INF] Request starting HTTP/1.1 GET http://localhost:5000/health - null null
+2025-10-24 11:07:59.925 +08:00 [WRN] Failed to determine the https port for redirect.
+2025-10-24 11:07:59.954 +08:00 [INF] Executing endpoint 'HTTP: GET /health'
+2025-10-24 11:07:59.962 +08:00 [INF] Executed endpoint 'HTTP: GET /health'
+2025-10-24 11:07:59.968 +08:00 [INF] Request finished HTTP/1.1 GET http://localhost:5000/health - 200 null application/json; charset=utf-8 91.8412ms
+2025-10-24 11:08:06.652 +08:00 [INF] Request starting HTTP/1.1 GET http://localhost:5000/api/courses/all - null null
+2025-10-24 11:08:06.664 +08:00 [INF] Executing endpoint 'EduStack.API.Controllers.CoursesController.GetAllCourses (EduStack.API)'
+2025-10-24 11:08:06.691 +08:00 [INF] Route matched with {action = "GetAllCourses", controller = "Courses"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAllCourses() on controller EduStack.API.Controllers.CoursesController (EduStack.API).
+2025-10-24 11:08:07.171 +08:00 [WRN] Compiling a query which loads related collections for more than one collection navigation, either via 'Include' or through projection, but no 'QuerySplittingBehavior' has been configured. By default, Entity Framework will use 'QuerySplittingBehavior.SingleQuery', which can potentially result in slow query performance. See https://go.microsoft.com/fwlink/?linkid=2134277 for more information. To identify the query that's triggering this warning call 'ConfigureWarnings(w => w.Throw(RelationalEventId.MultipleCollectionIncludeWarning))'.
+2025-10-24 11:08:07.361 +08:00 [ERR] Failed executing DbCommand (42ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT c.id, c.category, c.createdat, c.description, c.duration, c.instructorid, c.ispublished, c.level, c.price, c.thumbnail, c.title, c.updatedat, u.id, u.avatar, u.createdat, u.email, u.fullname, u.isactive, u.passwordhash, u.role, u.updatedat, r.id, r.comment, r.courseid, r.createdat, r.rating, r.updatedat, r.userid, e.id, e.completedat, e.courseid, e.enrolledat, e.status, e.userid, l.id, l.courseid, l.createdat, l.description, l.duration, l.ispublished, l."order", l.title, l.updatedat, l.videourl
+FROM courses AS c
+INNER JOIN users AS u ON c.instructorid = u.id
+LEFT JOIN reviews AS r ON c.id = r.courseid
+LEFT JOIN enrollments AS e ON c.id = e.courseid
+LEFT JOIN lessons AS l ON c.id = l.courseid
+WHERE c.ispublished
+ORDER BY c.id, u.id, r.id, e.id
+2025-10-24 11:08:07.399 +08:00 [ERR] An exception occurred while iterating over the results of a query for context type 'EduStack.Infrastructure.Data.EduStackDbContext'.
+Npgsql.PostgresException (0x80004005): 42703: column l.order does not exist
+
+POSITION: 464
+   at Npgsql.Internal.NpgsqlConnector.ReadMessageLong(Boolean async, DataRowLoadingMode dataRowLoadingMode, Boolean readingNotifications, Boolean isReadingPrependedMessage)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at Npgsql.NpgsqlDataReader.NextResult(Boolean async, Boolean isConsuming, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlDataReader.NextResult(Boolean async, Boolean isConsuming, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlCommand.ExecuteReader(Boolean async, CommandBehavior behavior, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlCommand.ExecuteReader(Boolean async, CommandBehavior behavior, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+  Exception data:
+    Severity: ERROR
+    SqlState: 42703
+    MessageText: column l.order does not exist
+    Position: 464
+    File: parse_relation.c
+    Line: 3675
+    Routine: errorMissingColumn
+Npgsql.PostgresException (0x80004005): 42703: column l.order does not exist
+
+POSITION: 464
+   at Npgsql.Internal.NpgsqlConnector.ReadMessageLong(Boolean async, DataRowLoadingMode dataRowLoadingMode, Boolean readingNotifications, Boolean isReadingPrependedMessage)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at Npgsql.NpgsqlDataReader.NextResult(Boolean async, Boolean isConsuming, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlDataReader.NextResult(Boolean async, Boolean isConsuming, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlCommand.ExecuteReader(Boolean async, CommandBehavior behavior, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlCommand.ExecuteReader(Boolean async, CommandBehavior behavior, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+  Exception data:
+    Severity: ERROR
+    SqlState: 42703
+    MessageText: column l.order does not exist
+    Position: 464
+    File: parse_relation.c
+    Line: 3675
+    Routine: errorMissingColumn
+2025-10-24 11:08:07.436 +08:00 [ERR] Error retrieving all courses
+Npgsql.PostgresException (0x80004005): 42703: column l.order does not exist
+
+POSITION: 464
+   at Npgsql.Internal.NpgsqlConnector.ReadMessageLong(Boolean async, DataRowLoadingMode dataRowLoadingMode, Boolean readingNotifications, Boolean isReadingPrependedMessage)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at Npgsql.NpgsqlDataReader.NextResult(Boolean async, Boolean isConsuming, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlDataReader.NextResult(Boolean async, Boolean isConsuming, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlCommand.ExecuteReader(Boolean async, CommandBehavior behavior, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlCommand.ExecuteReader(Boolean async, CommandBehavior behavior, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at EduStack.Infrastructure.Services.CourseService.GetAllCoursesAsync() in C:\xampp\htdocs\EduStack-eLearning-Website\EduStack-Backend\EduStack.Infrastructure\Services\CourseService.cs:line 22
+   at EduStack.API.Controllers.CoursesController.GetAllCourses() in C:\xampp\htdocs\EduStack-eLearning-Website\EduStack-Backend\EduStack.API\Controllers\CoursesController.cs:line 33
+  Exception data:
+    Severity: ERROR
+    SqlState: 42703
+    MessageText: column l.order does not exist
+    Position: 464
+    File: parse_relation.c
+    Line: 3675
+    Routine: errorMissingColumn
+2025-10-24 11:08:07.507 +08:00 [INF] Executing ObjectResult, writing value of type 'EduStack.Core.DTOs.Common.ApiResponse`1[[System.Object, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-10-24 11:08:07.529 +08:00 [INF] Executed action EduStack.API.Controllers.CoursesController.GetAllCourses (EduStack.API) in 828.2986ms
+2025-10-24 11:08:07.533 +08:00 [INF] Executed endpoint 'EduStack.API.Controllers.CoursesController.GetAllCourses (EduStack.API)'
+2025-10-24 11:08:07.541 +08:00 [INF] Request finished HTTP/1.1 GET http://localhost:5000/api/courses/all - 500 null application/json; charset=utf-8 889.5563ms
+2025-10-24 11:08:37.627 +08:00 [INF] Request starting HTTP/1.1 GET http://localhost:5000/health - null null
+2025-10-24 11:08:37.646 +08:00 [INF] Executing endpoint 'HTTP: GET /health'
+2025-10-24 11:08:37.650 +08:00 [INF] Executed endpoint 'HTTP: GET /health'
+2025-10-24 11:08:37.654 +08:00 [INF] Request finished HTTP/1.1 GET http://localhost:5000/health - 200 null application/json; charset=utf-8 27.1241ms
+2025-10-24 11:08:43.881 +08:00 [INF] Request starting HTTP/1.1 GET http://localhost:5000/api/courses/all - null null
+2025-10-24 11:08:43.892 +08:00 [INF] Executing endpoint 'EduStack.API.Controllers.CoursesController.GetAllCourses (EduStack.API)'
+2025-10-24 11:08:43.896 +08:00 [INF] Route matched with {action = "GetAllCourses", controller = "Courses"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAllCourses() on controller EduStack.API.Controllers.CoursesController (EduStack.API).
+2025-10-24 11:08:43.992 +08:00 [ERR] Failed executing DbCommand (1ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT c.id, c.category, c.createdat, c.description, c.duration, c.instructorid, c.ispublished, c.level, c.price, c.thumbnail, c.title, c.updatedat, u.id, u.avatar, u.createdat, u.email, u.fullname, u.isactive, u.passwordhash, u.role, u.updatedat, r.id, r.comment, r.courseid, r.createdat, r.rating, r.updatedat, r.userid, e.id, e.completedat, e.courseid, e.enrolledat, e.status, e.userid, l.id, l.courseid, l.createdat, l.description, l.duration, l.ispublished, l."order", l.title, l.updatedat, l.videourl
+FROM courses AS c
+INNER JOIN users AS u ON c.instructorid = u.id
+LEFT JOIN reviews AS r ON c.id = r.courseid
+LEFT JOIN enrollments AS e ON c.id = e.courseid
+LEFT JOIN lessons AS l ON c.id = l.courseid
+WHERE c.ispublished
+ORDER BY c.id, u.id, r.id, e.id
+2025-10-24 11:08:44.001 +08:00 [ERR] An exception occurred while iterating over the results of a query for context type 'EduStack.Infrastructure.Data.EduStackDbContext'.
+Npgsql.PostgresException (0x80004005): 42703: column l.order does not exist
+
+POSITION: 464
+   at Npgsql.Internal.NpgsqlConnector.ReadMessageLong(Boolean async, DataRowLoadingMode dataRowLoadingMode, Boolean readingNotifications, Boolean isReadingPrependedMessage)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at Npgsql.NpgsqlDataReader.NextResult(Boolean async, Boolean isConsuming, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlDataReader.NextResult(Boolean async, Boolean isConsuming, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlCommand.ExecuteReader(Boolean async, CommandBehavior behavior, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlCommand.ExecuteReader(Boolean async, CommandBehavior behavior, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+  Exception data:
+    Severity: ERROR
+    SqlState: 42703
+    MessageText: column l.order does not exist
+    Position: 464
+    File: parse_relation.c
+    Line: 3675
+    Routine: errorMissingColumn
+Npgsql.PostgresException (0x80004005): 42703: column l.order does not exist
+
+POSITION: 464
+   at Npgsql.Internal.NpgsqlConnector.ReadMessageLong(Boolean async, DataRowLoadingMode dataRowLoadingMode, Boolean readingNotifications, Boolean isReadingPrependedMessage)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at Npgsql.NpgsqlDataReader.NextResult(Boolean async, Boolean isConsuming, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlDataReader.NextResult(Boolean async, Boolean isConsuming, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlCommand.ExecuteReader(Boolean async, CommandBehavior behavior, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlCommand.ExecuteReader(Boolean async, CommandBehavior behavior, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+  Exception data:
+    Severity: ERROR
+    SqlState: 42703
+    MessageText: column l.order does not exist
+    Position: 464
+    File: parse_relation.c
+    Line: 3675
+    Routine: errorMissingColumn
+2025-10-24 11:08:44.032 +08:00 [ERR] Error retrieving all courses
+Npgsql.PostgresException (0x80004005): 42703: column l.order does not exist
+
+POSITION: 464
+   at Npgsql.Internal.NpgsqlConnector.ReadMessageLong(Boolean async, DataRowLoadingMode dataRowLoadingMode, Boolean readingNotifications, Boolean isReadingPrependedMessage)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at Npgsql.NpgsqlDataReader.NextResult(Boolean async, Boolean isConsuming, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlDataReader.NextResult(Boolean async, Boolean isConsuming, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlCommand.ExecuteReader(Boolean async, CommandBehavior behavior, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlCommand.ExecuteReader(Boolean async, CommandBehavior behavior, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at EduStack.Infrastructure.Services.CourseService.GetAllCoursesAsync() in C:\xampp\htdocs\EduStack-eLearning-Website\EduStack-Backend\EduStack.Infrastructure\Services\CourseService.cs:line 22
+   at EduStack.API.Controllers.CoursesController.GetAllCourses() in C:\xampp\htdocs\EduStack-eLearning-Website\EduStack-Backend\EduStack.API\Controllers\CoursesController.cs:line 33
+  Exception data:
+    Severity: ERROR
+    SqlState: 42703
+    MessageText: column l.order does not exist
+    Position: 464
+    File: parse_relation.c
+    Line: 3675
+    Routine: errorMissingColumn
+2025-10-24 11:08:44.064 +08:00 [INF] Executing ObjectResult, writing value of type 'EduStack.Core.DTOs.Common.ApiResponse`1[[System.Object, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-10-24 11:08:44.068 +08:00 [INF] Executed action EduStack.API.Controllers.CoursesController.GetAllCourses (EduStack.API) in 166.9412ms
+2025-10-24 11:08:44.072 +08:00 [INF] Executed endpoint 'EduStack.API.Controllers.CoursesController.GetAllCourses (EduStack.API)'
+2025-10-24 11:08:44.074 +08:00 [INF] Request finished HTTP/1.1 GET http://localhost:5000/api/courses/all - 500 null application/json; charset=utf-8 193.2601ms
+2025-10-24 11:08:56.124 +08:00 [INF] Request starting HTTP/1.1 GET http://localhost:5000/api/courses/featured - null null
+2025-10-24 11:08:56.134 +08:00 [INF] Executing endpoint 'EduStack.API.Controllers.CoursesController.GetFeaturedCourses (EduStack.API)'
+2025-10-24 11:08:56.143 +08:00 [INF] Route matched with {action = "GetFeaturedCourses", controller = "Courses"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetFeaturedCourses() on controller EduStack.API.Controllers.CoursesController (EduStack.API).
+2025-10-24 11:08:56.217 +08:00 [WRN] Compiling a query which loads related collections for more than one collection navigation, either via 'Include' or through projection, but no 'QuerySplittingBehavior' has been configured. By default, Entity Framework will use 'QuerySplittingBehavior.SingleQuery', which can potentially result in slow query performance. See https://go.microsoft.com/fwlink/?linkid=2134277 for more information. To identify the query that's triggering this warning call 'ConfigureWarnings(w => w.Throw(RelationalEventId.MultipleCollectionIncludeWarning))'.
+2025-10-24 11:08:56.281 +08:00 [ERR] Failed executing DbCommand (37ms) [Parameters=[@__p_0='?' (DbType = Int32)], CommandType='"Text"', CommandTimeout='30']
+SELECT t.id, t.category, t.createdat, t.description, t.duration, t.instructorid, t.ispublished, t.level, t.price, t.thumbnail, t.title, t.updatedat, u.id, u.avatar, u.createdat, u.email, u.fullname, u.isactive, u.passwordhash, u.role, u.updatedat, r.id, r.comment, r.courseid, r.createdat, r.rating, r.updatedat, r.userid, e0.id, e0.completedat, e0.courseid, e0.enrolledat, e0.status, e0.userid, l.id, l.courseid, l.createdat, l.description, l.duration, l.ispublished, l."order", l.title, l.updatedat, l.videourl
+FROM (
+    SELECT c.id, c.category, c.createdat, c.description, c.duration, c.instructorid, c.ispublished, c.level, c.price, c.thumbnail, c.title, c.updatedat, (
+        SELECT count(*)::int
+        FROM enrollments AS e
+        WHERE c.id = e.courseid) AS c
+    FROM courses AS c
+    WHERE c.ispublished
+    ORDER BY (
+        SELECT count(*)::int
+        FROM enrollments AS e
+        WHERE c.id = e.courseid) DESC
+    LIMIT @__p_0
+) AS t
+INNER JOIN users AS u ON t.instructorid = u.id
+LEFT JOIN reviews AS r ON t.id = r.courseid
+LEFT JOIN enrollments AS e0 ON t.id = e0.courseid
+LEFT JOIN lessons AS l ON t.id = l.courseid
+ORDER BY t.c DESC, t.id, u.id, r.id, e0.id
+2025-10-24 11:08:56.289 +08:00 [ERR] An exception occurred while iterating over the results of a query for context type 'EduStack.Infrastructure.Data.EduStackDbContext'.
+Npgsql.PostgresException (0x80004005): 42703: column l.order does not exist
+
+POSITION: 470
+   at Npgsql.Internal.NpgsqlConnector.ReadMessageLong(Boolean async, DataRowLoadingMode dataRowLoadingMode, Boolean readingNotifications, Boolean isReadingPrependedMessage)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at Npgsql.NpgsqlDataReader.NextResult(Boolean async, Boolean isConsuming, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlDataReader.NextResult(Boolean async, Boolean isConsuming, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlCommand.ExecuteReader(Boolean async, CommandBehavior behavior, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlCommand.ExecuteReader(Boolean async, CommandBehavior behavior, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+  Exception data:
+    Severity: ERROR
+    SqlState: 42703
+    MessageText: column l.order does not exist
+    Position: 470
+    File: parse_relation.c
+    Line: 3675
+    Routine: errorMissingColumn
+Npgsql.PostgresException (0x80004005): 42703: column l.order does not exist
+
+POSITION: 470
+   at Npgsql.Internal.NpgsqlConnector.ReadMessageLong(Boolean async, DataRowLoadingMode dataRowLoadingMode, Boolean readingNotifications, Boolean isReadingPrependedMessage)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at Npgsql.NpgsqlDataReader.NextResult(Boolean async, Boolean isConsuming, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlDataReader.NextResult(Boolean async, Boolean isConsuming, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlCommand.ExecuteReader(Boolean async, CommandBehavior behavior, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlCommand.ExecuteReader(Boolean async, CommandBehavior behavior, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+  Exception data:
+    Severity: ERROR
+    SqlState: 42703
+    MessageText: column l.order does not exist
+    Position: 470
+    File: parse_relation.c
+    Line: 3675
+    Routine: errorMissingColumn
+2025-10-24 11:08:56.309 +08:00 [ERR] Error retrieving featured courses
+Npgsql.PostgresException (0x80004005): 42703: column l.order does not exist
+
+POSITION: 470
+   at Npgsql.Internal.NpgsqlConnector.ReadMessageLong(Boolean async, DataRowLoadingMode dataRowLoadingMode, Boolean readingNotifications, Boolean isReadingPrependedMessage)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at Npgsql.NpgsqlDataReader.NextResult(Boolean async, Boolean isConsuming, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlDataReader.NextResult(Boolean async, Boolean isConsuming, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlCommand.ExecuteReader(Boolean async, CommandBehavior behavior, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlCommand.ExecuteReader(Boolean async, CommandBehavior behavior, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at EduStack.Infrastructure.Services.CourseService.GetFeaturedCoursesAsync() in C:\xampp\htdocs\EduStack-eLearning-Website\EduStack-Backend\EduStack.Infrastructure\Services\CourseService.cs:line 35
+   at EduStack.API.Controllers.CoursesController.GetFeaturedCourses() in C:\xampp\htdocs\EduStack-eLearning-Website\EduStack-Backend\EduStack.API\Controllers\CoursesController.cs:line 53
+  Exception data:
+    Severity: ERROR
+    SqlState: 42703
+    MessageText: column l.order does not exist
+    Position: 470
+    File: parse_relation.c
+    Line: 3675
+    Routine: errorMissingColumn
+2025-10-24 11:08:56.328 +08:00 [INF] Executing ObjectResult, writing value of type 'EduStack.Core.DTOs.Common.ApiResponse`1[[System.Object, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-10-24 11:08:56.332 +08:00 [INF] Executed action EduStack.API.Controllers.CoursesController.GetFeaturedCourses (EduStack.API) in 183.9255ms
+2025-10-24 11:08:56.334 +08:00 [INF] Executed endpoint 'EduStack.API.Controllers.CoursesController.GetFeaturedCourses (EduStack.API)'
+2025-10-24 11:08:56.339 +08:00 [INF] Request finished HTTP/1.1 GET http://localhost:5000/api/courses/featured - 500 null application/json; charset=utf-8 214.4538ms
+2025-10-24 11:09:08.227 +08:00 [INF] Request starting HTTP/1.1 GET http://localhost:5000/db-info - null null
+2025-10-24 11:09:08.236 +08:00 [INF] Executing endpoint 'HTTP: GET /db-info'
+2025-10-24 11:09:08.312 +08:00 [INF] Executed endpoint 'HTTP: GET /db-info'
+2025-10-24 11:09:08.315 +08:00 [INF] Request finished HTTP/1.1 GET http://localhost:5000/db-info - 200 null application/json; charset=utf-8 88.3227ms
+2025-10-24 11:10:21.136 +08:00 [INF] Application is shutting down...
+2025-10-24 11:10:34.665 +08:00 [INF] Testing database connection...
+2025-10-24 11:10:35.818 +08:00 [INF] Database connection test: true
+2025-10-24 11:10:35.827 +08:00 [INF] Database connection successful
+2025-10-24 11:10:35.837 +08:00 [INF] EduStack API starting up...
+2025-10-24 11:10:35.861 +08:00 [INF] User profile is available. Using 'C:\Users\TUF\AppData\Local\ASP.NET\DataProtection-Keys' as key repository and Windows DPAPI to encrypt keys at rest.
+2025-10-24 11:10:35.978 +08:00 [INF] Now listening on: http://localhost:5000
+2025-10-24 11:10:35.981 +08:00 [INF] Application started. Press Ctrl+C to shut down.
+2025-10-24 11:10:35.987 +08:00 [INF] Hosting environment: Development
+2025-10-24 11:10:35.990 +08:00 [INF] Content root path: C:\xampp\htdocs\EduStack-eLearning-Website\EduStack-Backend\EduStack.API
+2025-10-24 11:10:44.705 +08:00 [INF] Request starting HTTP/1.1 GET http://localhost:5000/api/courses/all - null null
+2025-10-24 11:10:44.759 +08:00 [WRN] Failed to determine the https port for redirect.
+2025-10-24 11:10:44.791 +08:00 [INF] Executing endpoint 'EduStack.API.Controllers.CoursesController.GetAllCourses (EduStack.API)'
+2025-10-24 11:10:44.809 +08:00 [INF] Route matched with {action = "GetAllCourses", controller = "Courses"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetAllCourses() on controller EduStack.API.Controllers.CoursesController (EduStack.API).
+2025-10-24 11:10:45.234 +08:00 [WRN] Compiling a query which loads related collections for more than one collection navigation, either via 'Include' or through projection, but no 'QuerySplittingBehavior' has been configured. By default, Entity Framework will use 'QuerySplittingBehavior.SingleQuery', which can potentially result in slow query performance. See https://go.microsoft.com/fwlink/?linkid=2134277 for more information. To identify the query that's triggering this warning call 'ConfigureWarnings(w => w.Throw(RelationalEventId.MultipleCollectionIncludeWarning))'.
+2025-10-24 11:10:45.420 +08:00 [ERR] Failed executing DbCommand (37ms) [Parameters=[], CommandType='"Text"', CommandTimeout='30']
+SELECT c.id, c.category, c.createdat, c.description, c.duration, c.instructorid, c.ispublished, c.level, c.price, c.thumbnail, c.title, c.updatedat, u.id, u.avatar, u.createdat, u.email, u.fullname, u.isactive, u.passwordhash, u.role, u.updatedat, r.id, r.comment, r.courseid, r.createdat, r.rating, r.updatedat, r.userid, e.id, e.completedat, e.courseid, e.enrolledat, e.status, e.userid, l.id, l.courseid, l.createdat, l.description, l.duration, l.ispublished, l."order", l.title, l.updatedat, l.videourl
+FROM courses AS c
+INNER JOIN users AS u ON c.instructorid = u.id
+LEFT JOIN reviews AS r ON c.id = r.courseid
+LEFT JOIN enrollments AS e ON c.id = e.courseid
+LEFT JOIN lessons AS l ON c.id = l.courseid
+WHERE c.ispublished
+ORDER BY c.id, u.id, r.id, e.id
+2025-10-24 11:10:45.449 +08:00 [ERR] An exception occurred while iterating over the results of a query for context type 'EduStack.Infrastructure.Data.EduStackDbContext'.
+Npgsql.PostgresException (0x80004005): 42703: column l.order does not exist
+
+POSITION: 464
+   at Npgsql.Internal.NpgsqlConnector.ReadMessageLong(Boolean async, DataRowLoadingMode dataRowLoadingMode, Boolean readingNotifications, Boolean isReadingPrependedMessage)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at Npgsql.NpgsqlDataReader.NextResult(Boolean async, Boolean isConsuming, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlDataReader.NextResult(Boolean async, Boolean isConsuming, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlCommand.ExecuteReader(Boolean async, CommandBehavior behavior, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlCommand.ExecuteReader(Boolean async, CommandBehavior behavior, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+  Exception data:
+    Severity: ERROR
+    SqlState: 42703
+    MessageText: column l.order does not exist
+    Position: 464
+    File: parse_relation.c
+    Line: 3675
+    Routine: errorMissingColumn
+Npgsql.PostgresException (0x80004005): 42703: column l.order does not exist
+
+POSITION: 464
+   at Npgsql.Internal.NpgsqlConnector.ReadMessageLong(Boolean async, DataRowLoadingMode dataRowLoadingMode, Boolean readingNotifications, Boolean isReadingPrependedMessage)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at Npgsql.NpgsqlDataReader.NextResult(Boolean async, Boolean isConsuming, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlDataReader.NextResult(Boolean async, Boolean isConsuming, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlCommand.ExecuteReader(Boolean async, CommandBehavior behavior, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlCommand.ExecuteReader(Boolean async, CommandBehavior behavior, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+  Exception data:
+    Severity: ERROR
+    SqlState: 42703
+    MessageText: column l.order does not exist
+    Position: 464
+    File: parse_relation.c
+    Line: 3675
+    Routine: errorMissingColumn
+2025-10-24 11:10:45.477 +08:00 [ERR] Error retrieving all courses
+Npgsql.PostgresException (0x80004005): 42703: column l.order does not exist
+
+POSITION: 464
+   at Npgsql.Internal.NpgsqlConnector.ReadMessageLong(Boolean async, DataRowLoadingMode dataRowLoadingMode, Boolean readingNotifications, Boolean isReadingPrependedMessage)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at Npgsql.NpgsqlDataReader.NextResult(Boolean async, Boolean isConsuming, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlDataReader.NextResult(Boolean async, Boolean isConsuming, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlCommand.ExecuteReader(Boolean async, CommandBehavior behavior, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlCommand.ExecuteReader(Boolean async, CommandBehavior behavior, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at EduStack.Infrastructure.Services.CourseService.GetAllCoursesAsync() in C:\xampp\htdocs\EduStack-eLearning-Website\EduStack-Backend\EduStack.Infrastructure\Services\CourseService.cs:line 22
+   at EduStack.API.Controllers.CoursesController.GetAllCourses() in C:\xampp\htdocs\EduStack-eLearning-Website\EduStack-Backend\EduStack.API\Controllers\CoursesController.cs:line 33
+  Exception data:
+    Severity: ERROR
+    SqlState: 42703
+    MessageText: column l.order does not exist
+    Position: 464
+    File: parse_relation.c
+    Line: 3675
+    Routine: errorMissingColumn
+2025-10-24 11:10:45.537 +08:00 [INF] Executing ObjectResult, writing value of type 'EduStack.Core.DTOs.Common.ApiResponse`1[[System.Object, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-10-24 11:10:45.567 +08:00 [INF] Executed action EduStack.API.Controllers.CoursesController.GetAllCourses (EduStack.API) in 745.7685ms
+2025-10-24 11:10:45.572 +08:00 [INF] Executed endpoint 'EduStack.API.Controllers.CoursesController.GetAllCourses (EduStack.API)'
+2025-10-24 11:10:45.581 +08:00 [INF] Request finished HTTP/1.1 GET http://localhost:5000/api/courses/all - 500 null application/json; charset=utf-8 876.9302ms
+2025-10-24 11:10:52.546 +08:00 [INF] Request starting HTTP/1.1 POST http://localhost:5000/api/courses - application/json 222
+2025-10-24 11:10:52.569 +08:00 [INF] Authorization failed. These requirements were not met:
+RolesAuthorizationRequirement:User.IsInRole must be true for one of the following roles: (INSTRUCTOR)
+2025-10-24 11:10:52.578 +08:00 [INF] AuthenticationScheme: Bearer was challenged.
+2025-10-24 11:10:52.583 +08:00 [INF] Request finished HTTP/1.1 POST http://localhost:5000/api/courses - 401 0 null 37.5508ms
+2025-10-24 11:11:28.405 +08:00 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5000/api/courses/my-courses - null null
+2025-10-24 11:11:28.411 +08:00 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5000/api/enrollments/my-enrollments - null null
+2025-10-24 11:11:28.410 +08:00 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5000/api/courses/my-courses - null null
+2025-10-24 11:11:28.407 +08:00 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5000/api/enrollments/my-enrollments - null null
+2025-10-24 11:11:28.434 +08:00 [INF] CORS policy execution successful.
+2025-10-24 11:11:28.434 +08:00 [INF] CORS policy execution successful.
+2025-10-24 11:11:28.437 +08:00 [INF] CORS policy execution successful.
+2025-10-24 11:11:28.442 +08:00 [INF] CORS policy execution successful.
+2025-10-24 11:11:28.448 +08:00 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5000/api/courses/my-courses - 204 null null 43.1261ms
+2025-10-24 11:11:28.451 +08:00 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5000/api/enrollments/my-enrollments - 204 null null 39.1073ms
+2025-10-24 11:11:28.452 +08:00 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5000/api/courses/my-courses - 204 null null 42.3334ms
+2025-10-24 11:11:28.455 +08:00 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5000/api/enrollments/my-enrollments - 204 null null 47.3476ms
+2025-10-24 11:11:28.503 +08:00 [INF] Request starting HTTP/1.1 GET http://localhost:5000/api/courses/my-courses - application/json null
+2025-10-24 11:11:28.507 +08:00 [INF] Request starting HTTP/1.1 GET http://localhost:5000/api/enrollments/my-enrollments - application/json null
+2025-10-24 11:11:28.527 +08:00 [INF] CORS policy execution successful.
+2025-10-24 11:11:28.530 +08:00 [INF] CORS policy execution successful.
+2025-10-24 11:11:28.645 +08:00 [INF] Executing endpoint 'EduStack.API.Controllers.CoursesController.GetMyCourses (EduStack.API)'
+2025-10-24 11:11:28.645 +08:00 [INF] Executing endpoint 'EduStack.API.Controllers.EnrollmentsController.GetUserEnrollments (EduStack.API)'
+2025-10-24 11:11:28.658 +08:00 [INF] Route matched with {action = "GetMyCourses", controller = "Courses"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetMyCourses() on controller EduStack.API.Controllers.CoursesController (EduStack.API).
+2025-10-24 11:11:28.658 +08:00 [INF] Route matched with {action = "GetUserEnrollments", controller = "Enrollments"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetUserEnrollments() on controller EduStack.API.Controllers.EnrollmentsController (EduStack.API).
+2025-10-24 11:11:28.797 +08:00 [WRN] Compiling a query which loads related collections for more than one collection navigation, either via 'Include' or through projection, but no 'QuerySplittingBehavior' has been configured. By default, Entity Framework will use 'QuerySplittingBehavior.SingleQuery', which can potentially result in slow query performance. See https://go.microsoft.com/fwlink/?linkid=2134277 for more information. To identify the query that's triggering this warning call 'ConfigureWarnings(w => w.Throw(RelationalEventId.MultipleCollectionIncludeWarning))'.
+2025-10-24 11:11:28.877 +08:00 [INF] Executed DbCommand (83ms) [Parameters=[@__userId_0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+SELECT e.id, e.completedat, e.courseid, e.enrolledat, e.status, e.userid, c.id, c.category, c.createdat, c.description, c.duration, c.instructorid, c.ispublished, c.level, c.price, c.thumbnail, c.title, c.updatedat
+FROM enrollments AS e
+INNER JOIN courses AS c ON e.courseid = c.id
+WHERE e.userid = @__userId_0
+ORDER BY e.enrolledat DESC
+2025-10-24 11:11:28.896 +08:00 [ERR] Failed executing DbCommand (4ms) [Parameters=[@__instructorId_0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+SELECT c.id, c.category, c.createdat, c.description, c.duration, c.instructorid, c.ispublished, c.level, c.price, c.thumbnail, c.title, c.updatedat, u.id, u.avatar, u.createdat, u.email, u.fullname, u.isactive, u.passwordhash, u.role, u.updatedat, r.id, r.comment, r.courseid, r.createdat, r.rating, r.updatedat, r.userid, e.id, e.completedat, e.courseid, e.enrolledat, e.status, e.userid, l.id, l.courseid, l.createdat, l.description, l.duration, l.ispublished, l."order", l.title, l.updatedat, l.videourl
+FROM courses AS c
+INNER JOIN users AS u ON c.instructorid = u.id
+LEFT JOIN reviews AS r ON c.id = r.courseid
+LEFT JOIN enrollments AS e ON c.id = e.courseid
+LEFT JOIN lessons AS l ON c.id = l.courseid
+WHERE c.instructorid = @__instructorId_0 AND c.ispublished
+ORDER BY c.id, u.id, r.id, e.id
+2025-10-24 11:11:28.901 +08:00 [INF] Executing OkObjectResult, writing value of type 'EduStack.Core.DTOs.Common.ApiResponse`1[[System.Collections.Generic.IEnumerable`1[[EduStack.Core.DTOs.Enrollment.EnrollmentResponseDto, EduStack.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-10-24 11:11:28.909 +08:00 [ERR] An exception occurred while iterating over the results of a query for context type 'EduStack.Infrastructure.Data.EduStackDbContext'.
+Npgsql.PostgresException (0x80004005): 42703: column l.order does not exist
+
+POSITION: 464
+   at Npgsql.Internal.NpgsqlConnector.ReadMessageLong(Boolean async, DataRowLoadingMode dataRowLoadingMode, Boolean readingNotifications, Boolean isReadingPrependedMessage)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at Npgsql.NpgsqlDataReader.NextResult(Boolean async, Boolean isConsuming, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlDataReader.NextResult(Boolean async, Boolean isConsuming, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlCommand.ExecuteReader(Boolean async, CommandBehavior behavior, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlCommand.ExecuteReader(Boolean async, CommandBehavior behavior, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+  Exception data:
+    Severity: ERROR
+    SqlState: 42703
+    MessageText: column l.order does not exist
+    Position: 464
+    File: parse_relation.c
+    Line: 3675
+    Routine: errorMissingColumn
+Npgsql.PostgresException (0x80004005): 42703: column l.order does not exist
+
+POSITION: 464
+   at Npgsql.Internal.NpgsqlConnector.ReadMessageLong(Boolean async, DataRowLoadingMode dataRowLoadingMode, Boolean readingNotifications, Boolean isReadingPrependedMessage)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at Npgsql.NpgsqlDataReader.NextResult(Boolean async, Boolean isConsuming, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlDataReader.NextResult(Boolean async, Boolean isConsuming, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlCommand.ExecuteReader(Boolean async, CommandBehavior behavior, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlCommand.ExecuteReader(Boolean async, CommandBehavior behavior, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+  Exception data:
+    Severity: ERROR
+    SqlState: 42703
+    MessageText: column l.order does not exist
+    Position: 464
+    File: parse_relation.c
+    Line: 3675
+    Routine: errorMissingColumn
+2025-10-24 11:11:28.932 +08:00 [INF] Executed action EduStack.API.Controllers.EnrollmentsController.GetUserEnrollments (EduStack.API) in 259.7613ms
+2025-10-24 11:11:28.934 +08:00 [INF] Request starting HTTP/1.1 GET http://localhost:5000/api/enrollments/my-enrollments - application/json null
+2025-10-24 11:11:28.945 +08:00 [ERR] Error retrieving courses for instructor "78abc482-8fe6-428c-8e48-6b3d2171bc39"
+Npgsql.PostgresException (0x80004005): 42703: column l.order does not exist
+
+POSITION: 464
+   at Npgsql.Internal.NpgsqlConnector.ReadMessageLong(Boolean async, DataRowLoadingMode dataRowLoadingMode, Boolean readingNotifications, Boolean isReadingPrependedMessage)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at Npgsql.NpgsqlDataReader.NextResult(Boolean async, Boolean isConsuming, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlDataReader.NextResult(Boolean async, Boolean isConsuming, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlCommand.ExecuteReader(Boolean async, CommandBehavior behavior, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlCommand.ExecuteReader(Boolean async, CommandBehavior behavior, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at EduStack.Infrastructure.Services.CourseService.GetCoursesByInstructorAsync(Guid instructorId) in C:\xampp\htdocs\EduStack-eLearning-Website\EduStack-Backend\EduStack.Infrastructure\Services\CourseService.cs:line 75
+   at EduStack.API.Controllers.CoursesController.GetMyCourses() in C:\xampp\htdocs\EduStack-eLearning-Website\EduStack-Backend\EduStack.API\Controllers\CoursesController.cs:line 238
+  Exception data:
+    Severity: ERROR
+    SqlState: 42703
+    MessageText: column l.order does not exist
+    Position: 464
+    File: parse_relation.c
+    Line: 3675
+    Routine: errorMissingColumn
+2025-10-24 11:11:28.949 +08:00 [INF] Executed endpoint 'EduStack.API.Controllers.EnrollmentsController.GetUserEnrollments (EduStack.API)'
+2025-10-24 11:11:28.980 +08:00 [INF] CORS policy execution successful.
+2025-10-24 11:11:29.005 +08:00 [INF] Executing ObjectResult, writing value of type 'EduStack.Core.DTOs.Common.ApiResponse`1[[System.Object, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-10-24 11:11:29.005 +08:00 [INF] Request finished HTTP/1.1 GET http://localhost:5000/api/enrollments/my-enrollments - 200 null application/json; charset=utf-8 498.0159ms
+2025-10-24 11:11:29.009 +08:00 [INF] Executing endpoint 'EduStack.API.Controllers.EnrollmentsController.GetUserEnrollments (EduStack.API)'
+2025-10-24 11:11:29.016 +08:00 [INF] Executed action EduStack.API.Controllers.CoursesController.GetMyCourses (EduStack.API) in 346.7905ms
+2025-10-24 11:11:29.021 +08:00 [INF] Request starting HTTP/1.1 GET http://localhost:5000/api/courses/my-courses - application/json null
+2025-10-24 11:11:29.025 +08:00 [INF] Route matched with {action = "GetUserEnrollments", controller = "Enrollments"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetUserEnrollments() on controller EduStack.API.Controllers.EnrollmentsController (EduStack.API).
+2025-10-24 11:11:29.031 +08:00 [INF] Executed endpoint 'EduStack.API.Controllers.CoursesController.GetMyCourses (EduStack.API)'
+2025-10-24 11:11:29.037 +08:00 [INF] CORS policy execution successful.
+2025-10-24 11:11:29.045 +08:00 [INF] Request finished HTTP/1.1 GET http://localhost:5000/api/courses/my-courses - 500 null application/json; charset=utf-8 542.6849ms
+2025-10-24 11:11:29.048 +08:00 [INF] Executing endpoint 'EduStack.API.Controllers.CoursesController.GetMyCourses (EduStack.API)'
+2025-10-24 11:11:29.053 +08:00 [INF] Executed DbCommand (2ms) [Parameters=[@__userId_0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+SELECT e.id, e.completedat, e.courseid, e.enrolledat, e.status, e.userid, c.id, c.category, c.createdat, c.description, c.duration, c.instructorid, c.ispublished, c.level, c.price, c.thumbnail, c.title, c.updatedat
+FROM enrollments AS e
+INNER JOIN courses AS c ON e.courseid = c.id
+WHERE e.userid = @__userId_0
+ORDER BY e.enrolledat DESC
+2025-10-24 11:11:29.063 +08:00 [INF] Route matched with {action = "GetMyCourses", controller = "Courses"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] GetMyCourses() on controller EduStack.API.Controllers.CoursesController (EduStack.API).
+2025-10-24 11:11:29.066 +08:00 [INF] Executing OkObjectResult, writing value of type 'EduStack.Core.DTOs.Common.ApiResponse`1[[System.Collections.Generic.IEnumerable`1[[EduStack.Core.DTOs.Enrollment.EnrollmentResponseDto, EduStack.Core, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]], System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-10-24 11:11:29.076 +08:00 [INF] Executed action EduStack.API.Controllers.EnrollmentsController.GetUserEnrollments (EduStack.API) in 33.6531ms
+2025-10-24 11:11:29.081 +08:00 [ERR] Failed executing DbCommand (2ms) [Parameters=[@__instructorId_0='?' (DbType = Guid)], CommandType='"Text"', CommandTimeout='30']
+SELECT c.id, c.category, c.createdat, c.description, c.duration, c.instructorid, c.ispublished, c.level, c.price, c.thumbnail, c.title, c.updatedat, u.id, u.avatar, u.createdat, u.email, u.fullname, u.isactive, u.passwordhash, u.role, u.updatedat, r.id, r.comment, r.courseid, r.createdat, r.rating, r.updatedat, r.userid, e.id, e.completedat, e.courseid, e.enrolledat, e.status, e.userid, l.id, l.courseid, l.createdat, l.description, l.duration, l.ispublished, l."order", l.title, l.updatedat, l.videourl
+FROM courses AS c
+INNER JOIN users AS u ON c.instructorid = u.id
+LEFT JOIN reviews AS r ON c.id = r.courseid
+LEFT JOIN enrollments AS e ON c.id = e.courseid
+LEFT JOIN lessons AS l ON c.id = l.courseid
+WHERE c.instructorid = @__instructorId_0 AND c.ispublished
+ORDER BY c.id, u.id, r.id, e.id
+2025-10-24 11:11:29.081 +08:00 [INF] Executed endpoint 'EduStack.API.Controllers.EnrollmentsController.GetUserEnrollments (EduStack.API)'
+2025-10-24 11:11:29.091 +08:00 [INF] Request finished HTTP/1.1 GET http://localhost:5000/api/enrollments/my-enrollments - 200 null application/json; charset=utf-8 157.1715ms
+2025-10-24 11:11:29.094 +08:00 [ERR] An exception occurred while iterating over the results of a query for context type 'EduStack.Infrastructure.Data.EduStackDbContext'.
+Npgsql.PostgresException (0x80004005): 42703: column l.order does not exist
+
+POSITION: 464
+   at Npgsql.Internal.NpgsqlConnector.ReadMessageLong(Boolean async, DataRowLoadingMode dataRowLoadingMode, Boolean readingNotifications, Boolean isReadingPrependedMessage)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at Npgsql.NpgsqlDataReader.NextResult(Boolean async, Boolean isConsuming, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlDataReader.NextResult(Boolean async, Boolean isConsuming, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlCommand.ExecuteReader(Boolean async, CommandBehavior behavior, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlCommand.ExecuteReader(Boolean async, CommandBehavior behavior, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+  Exception data:
+    Severity: ERROR
+    SqlState: 42703
+    MessageText: column l.order does not exist
+    Position: 464
+    File: parse_relation.c
+    Line: 3675
+    Routine: errorMissingColumn
+Npgsql.PostgresException (0x80004005): 42703: column l.order does not exist
+
+POSITION: 464
+   at Npgsql.Internal.NpgsqlConnector.ReadMessageLong(Boolean async, DataRowLoadingMode dataRowLoadingMode, Boolean readingNotifications, Boolean isReadingPrependedMessage)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at Npgsql.NpgsqlDataReader.NextResult(Boolean async, Boolean isConsuming, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlDataReader.NextResult(Boolean async, Boolean isConsuming, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlCommand.ExecuteReader(Boolean async, CommandBehavior behavior, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlCommand.ExecuteReader(Boolean async, CommandBehavior behavior, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+  Exception data:
+    Severity: ERROR
+    SqlState: 42703
+    MessageText: column l.order does not exist
+    Position: 464
+    File: parse_relation.c
+    Line: 3675
+    Routine: errorMissingColumn
+2025-10-24 11:11:29.131 +08:00 [ERR] Error retrieving courses for instructor "78abc482-8fe6-428c-8e48-6b3d2171bc39"
+Npgsql.PostgresException (0x80004005): 42703: column l.order does not exist
+
+POSITION: 464
+   at Npgsql.Internal.NpgsqlConnector.ReadMessageLong(Boolean async, DataRowLoadingMode dataRowLoadingMode, Boolean readingNotifications, Boolean isReadingPrependedMessage)
+   at System.Runtime.CompilerServices.PoolingAsyncValueTaskMethodBuilder`1.StateMachineBox`1.System.Threading.Tasks.Sources.IValueTaskSource<TResult>.GetResult(Int16 token)
+   at Npgsql.NpgsqlDataReader.NextResult(Boolean async, Boolean isConsuming, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlDataReader.NextResult(Boolean async, Boolean isConsuming, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlCommand.ExecuteReader(Boolean async, CommandBehavior behavior, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlCommand.ExecuteReader(Boolean async, CommandBehavior behavior, CancellationToken cancellationToken)
+   at Npgsql.NpgsqlCommand.ExecuteDbDataReaderAsync(CommandBehavior behavior, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Storage.RelationalCommand.ExecuteReaderAsync(RelationalCommandParameterObject parameterObject, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.InitializeReaderAsync(AsyncEnumerator enumerator, CancellationToken cancellationToken)
+   at Npgsql.EntityFrameworkCore.PostgreSQL.Storage.Internal.NpgsqlExecutionStrategy.ExecuteAsync[TState,TResult](TState state, Func`4 operation, Func`4 verifySucceeded, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.Query.Internal.SingleQueryingEnumerable`1.AsyncEnumerator.MoveNextAsync()
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at Microsoft.EntityFrameworkCore.EntityFrameworkQueryableExtensions.ToListAsync[TSource](IQueryable`1 source, CancellationToken cancellationToken)
+   at EduStack.Infrastructure.Services.CourseService.GetCoursesByInstructorAsync(Guid instructorId) in C:\xampp\htdocs\EduStack-eLearning-Website\EduStack-Backend\EduStack.Infrastructure\Services\CourseService.cs:line 75
+   at EduStack.API.Controllers.CoursesController.GetMyCourses() in C:\xampp\htdocs\EduStack-eLearning-Website\EduStack-Backend\EduStack.API\Controllers\CoursesController.cs:line 238
+  Exception data:
+    Severity: ERROR
+    SqlState: 42703
+    MessageText: column l.order does not exist
+    Position: 464
+    File: parse_relation.c
+    Line: 3675
+    Routine: errorMissingColumn
+2025-10-24 11:11:29.167 +08:00 [INF] Executing ObjectResult, writing value of type 'EduStack.Core.DTOs.Common.ApiResponse`1[[System.Object, System.Private.CoreLib, Version=8.0.0.0, Culture=neutral, PublicKeyToken=7cec85d7bea7798e]]'.
+2025-10-24 11:11:29.172 +08:00 [INF] Executed action EduStack.API.Controllers.CoursesController.GetMyCourses (EduStack.API) in 99.9781ms
+2025-10-24 11:11:29.177 +08:00 [INF] Executed endpoint 'EduStack.API.Controllers.CoursesController.GetMyCourses (EduStack.API)'
+2025-10-24 11:11:29.182 +08:00 [INF] Request finished HTTP/1.1 GET http://localhost:5000/api/courses/my-courses - 500 null application/json; charset=utf-8 160.512ms
+2025-10-24 11:11:37.907 +08:00 [INF] Request starting HTTP/1.1 OPTIONS http://localhost:5000/api/courses/2 - null null
+2025-10-24 11:11:37.914 +08:00 [INF] CORS policy execution successful.
+2025-10-24 11:11:37.916 +08:00 [INF] Request finished HTTP/1.1 OPTIONS http://localhost:5000/api/courses/2 - 204 null null 9.6776ms
+2025-10-24 11:11:37.926 +08:00 [INF] Request starting HTTP/1.1 PUT http://localhost:5000/api/courses/2 - application/json 303
+2025-10-24 11:11:37.933 +08:00 [INF] CORS policy execution successful.
+2025-10-24 11:11:37.937 +08:00 [INF] Executing endpoint 'EduStack.API.Controllers.CoursesController.UpdateCourse (EduStack.API)'
+2025-10-24 11:11:37.955 +08:00 [INF] Route matched with {action = "UpdateCourse", controller = "Courses"}. Executing controller action with signature System.Threading.Tasks.Task`1[Microsoft.AspNetCore.Mvc.IActionResult] UpdateCourse(System.Guid, EduStack.Core.DTOs.Course.UpdateCourseDto) on controller EduStack.API.Controllers.CoursesController (EduStack.API).
+2025-10-24 11:11:38.011 +08:00 [INF] Executing BadRequestObjectResult, writing value of type 'Microsoft.AspNetCore.Mvc.ValidationProblemDetails'.
+2025-10-24 11:11:38.033 +08:00 [INF] Executed action EduStack.API.Controllers.CoursesController.UpdateCourse (EduStack.API) in 72.0295ms
+2025-10-24 11:11:38.037 +08:00 [INF] Executed endpoint 'EduStack.API.Controllers.CoursesController.UpdateCourse (EduStack.API)'
+2025-10-24 11:11:38.041 +08:00 [INF] Request finished HTTP/1.1 PUT http://localhost:5000/api/courses/2 - 400 null application/problem+json; charset=utf-8 114.5347ms
+2025-10-24 11:11:57.433 +08:00 [INF] Application is shutting down...
