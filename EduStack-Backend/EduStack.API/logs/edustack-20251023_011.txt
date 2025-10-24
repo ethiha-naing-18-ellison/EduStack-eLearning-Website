@@ -103,3 +103,4 @@ LIMIT 1
 2025-10-23 23:33:51.706 +08:00 [INF] Executed action EduStack.API.Controllers.AuthController.Login (EduStack.API) in 343.0691ms
 2025-10-23 23:33:51.711 +08:00 [INF] Executed endpoint 'EduStack.API.Controllers.AuthController.Login (EduStack.API)'
 2025-10-23 23:33:51.716 +08:00 [INF] Request finished HTTP/1.1 POST http://localhost:5000/api/auth/login - 200 null application/json; charset=utf-8 375.7999ms
+2025-10-23 23:56:17.320 +08:00 [INF] Application is shutting down...

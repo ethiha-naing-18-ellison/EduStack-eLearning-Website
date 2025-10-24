@@ -24,21 +24,14 @@ import {
   PlayCircleOutline,
   AccessTime,
   People,
-  Star,
   CheckCircle,
   School,
-  Code,
-  Palette,
-  Business,
-  Science,
-  Security,
-  Cloud,
-  PhoneAndroid
+  Palette
 } from '@mui/icons-material';
 import { useAuth } from '../contexts/AuthContext';
 import { useEnrollment } from '../contexts/EnrollmentContext';
 
-interface CourseDetails {
+interface CourseDetailsData {
   id: number;
   title: string;
   instructor: string;
@@ -65,12 +58,11 @@ const CourseDetails: React.FC = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const { isAuthenticated } = useAuth();
   const { enrollInCourse, isEnrolled } = useEnrollment();
 
   // Sample course data - in a real app, this would come from an API
-  const courseData: CourseDetails = {
+  const courseData: CourseDetailsData = {
     id: parseInt(id || '1'),
     title: "UI/UX Design Fundamentals",
     instructor: "Alex Thompson",
@@ -134,7 +126,7 @@ const CourseDetails: React.FC = () => {
     ]
   };
 
-  const handleEnroll = () => {
+  const handleEnroll = async () => {
     // Check if user is logged in
     if (!isAuthenticated) {
       alert('Please sign up or login to enroll in courses!');
@@ -164,8 +156,13 @@ const CourseDetails: React.FC = () => {
     };
 
     // Enroll in the course
-    enrollInCourse(course);
-    alert(`Successfully enrolled in "${courseData.title}"!`);
+    try {
+      await enrollInCourse(course);
+      alert(`Successfully enrolled in "${courseData.title}"!`);
+    } catch (error) {
+      console.error('Enrollment failed:', error);
+      alert('Failed to enroll in course. Please try again.');
+    }
   };
 
   const handleBackToCourses = () => {

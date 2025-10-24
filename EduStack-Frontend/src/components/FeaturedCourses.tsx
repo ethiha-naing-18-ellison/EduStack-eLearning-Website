@@ -22,7 +22,6 @@ import {
   PlayCircleOutline,
   AccessTime,
   People,
-  Star,
   CheckCircle
 } from '@mui/icons-material';
 import EnrollmentModal from './EnrollmentModal';
@@ -46,7 +45,6 @@ interface Course {
 const FeaturedCourses: React.FC = () => {
   const navigate = useNavigate();
   const theme = useTheme();
-  const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const { enrollInCourse, isEnrolled } = useEnrollment();
   const { isAuthenticated } = useAuth();
   
@@ -176,7 +174,7 @@ const FeaturedCourses: React.FC = () => {
       // Simulate API call delay
       await new Promise(resolve => setTimeout(resolve, 1500));
       
-      enrollInCourse(enrollmentModal.course);
+      await enrollInCourse(enrollmentModal.course);
       
       setEnrollmentModal({ open: false, course: null });
       setSnackbar({
