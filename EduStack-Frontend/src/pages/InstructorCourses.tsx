@@ -70,35 +70,7 @@ const InstructorCourses: React.FC = () => {
     severity: 'success' | 'error' | 'info';
   }>({ open: false, message: '', severity: 'info' });
 
-  // Sample course data - in a real app, this would come from an API
-  const sampleCourses: Course[] = [
-    {
-      id: '1',
-      title: 'Complete Web Development Bootcamp',
-      description: 'Master modern web development with HTML, CSS, JavaScript, React, Node.js, and more.',
-      thumbnail: 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?w=400&h=250&fit=crop',
-      price: 199.99,
-      category: 'Web Development',
-      level: 'BEGINNER',
-      duration: 12,
-      isPublished: true,
-      studentCount: 1250,
-      createdAt: '2024-01-15'
-    },
-    {
-      id: '2',
-      title: 'UI/UX Design Fundamentals',
-      description: 'Learn the fundamentals of UI/UX design, user research, wireframing, and prototyping.',
-      thumbnail: 'https://images.unsplash.com/photo-1558655146-d09347e92766?w=400&h=250&fit=crop',
-      price: 149.99,
-      category: 'UI/UX Design',
-      level: 'BEGINNER',
-      duration: 6,
-      isPublished: true,
-      studentCount: 750,
-      createdAt: '2024-02-01'
-    }
-  ];
+  // Real course data will be loaded from API
 
   // Load courses from API
   React.useEffect(() => {
@@ -128,7 +100,7 @@ const InstructorCourses: React.FC = () => {
     } catch (error) {
       console.error('Error loading courses:', error);
       // Fallback to sample data if API fails
-      setCourses(sampleCourses);
+      setCourses([]);
     }
   };
 
